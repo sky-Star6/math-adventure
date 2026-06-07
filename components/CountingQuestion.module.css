@@ -1,0 +1,105 @@
+/* ============================================================
+   🔢 CountingQuestion.module.css
+   숫자 세기 문제 스타일
+   - 이모지 그리드 배치 + fadeIn 애니메이션
+   - 큰 질문 텍스트 + 답안 버튼 그리드
+   ============================================================ */
+
+/* ---- 전체 문제 영역 ---- */
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- 질문 텍스트 (예: "그림이 몇 개일까요?") ---- */
+.questionText {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #5B3A8C;
+  text-align: center;
+  /* 글래스모피즘 배경 */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(91, 58, 140, 0.1);
+}
+
+/* ---- 이모지 그리드 영역 ---- */
+.emojiGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  /* 유리 효과 카드 */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  min-height: 100px;
+  width: 100%;
+}
+
+/* ---- 개별 이모지 아이템 ---- */
+.emojiItem {
+  font-size: 2.8rem;
+  /* 각 이모지가 순차적으로 나타나는 fadeIn 애니메이션 */
+  animation: emojiFadeIn 0.4s ease both;
+  /* 호버 시 살짝 커지는 효과 */
+  transition: transform 0.2s ease;
+  cursor: default;
+}
+
+/* 이모지 호버 효과 */
+.emojiItem:hover {
+  transform: scale(1.2);
+}
+
+/* ---- 답안 버튼 그리드 (2×2 배치) ---- */
+.choicesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ---- 이모지 순차 등장 애니메이션 ---- */
+@keyframes emojiFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ---- 반응형: 모바일 ---- */
+@media (max-width: 600px) {
+  .questionContainer {
+    padding: 12px;
+    gap: 16px;
+  }
+  .questionText {
+    font-size: 1.5rem;
+    padding: 12px 20px;
+  }
+  .emojiItem {
+    font-size: 2.2rem;
+  }
+  .emojiGrid {
+    padding: 16px;
+    gap: 8px;
+  }
+}

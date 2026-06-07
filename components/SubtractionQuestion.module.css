@@ -1,0 +1,179 @@
+/* ============================================================
+   ➖ SubtractionQuestion.module.css
+   뺄셈 문제 스타일
+   - 큰 수식 표시 + 이모지 보조 + 답안 그리드
+   - 뺄셈 느낌의 색상 (연두색/초록색 계열)
+   ============================================================ */
+
+/* ---- 전체 문제 영역 ---- */
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- 질문 텍스트 ---- */
+.questionText {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2D7A4F;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(45, 122, 79, 0.1);
+}
+
+/* ---- 수식 카드 (예: 7 - 3 = ?) ---- */
+.formulaCard {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 24px;
+  padding: 28px 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  border: 2px solid rgba(150, 230, 161, 0.5);
+  width: 100%;
+  text-align: center;
+}
+
+/* ---- 수식 텍스트 (7 - 3 = ?) ---- */
+.formula {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #1A5C35;
+  letter-spacing: 6px;
+  animation: formulaAppear 0.5s ease;
+}
+
+/* ---- 연산 기호 (-) 강조 ---- */
+.operator {
+  color: #E67E22;
+  margin: 0 8px;
+}
+
+/* ---- 물음표 (?) ---- */
+.questionMark {
+  color: #E67E22;
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* ---- 이모지 보조 시각화 영역 ---- */
+.visualAid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+/* ---- 숫자별 이모지 그룹 ---- */
+.emojiGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  border: 2px dashed rgba(150, 230, 161, 0.6);
+}
+
+/* ---- 뺄셈에서 빠지는 이모지 (흐리게 + 취소선) ---- */
+.emojiSubtracted {
+  font-size: 1.8rem;
+  /* 빠지는 이모지는 흐리게 표시 */
+  opacity: 0.3;
+  /* 취소선 효과를 위한 추가 스타일 */
+  position: relative;
+  animation: fadeOut 0.5s ease both;
+}
+
+/* 취소선 */
+.emojiSubtracted::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  right: -4px;
+  height: 3px;
+  background-color: #E74C3C;
+  border-radius: 2px;
+}
+
+/* ---- 남아있는 이모지 (밝게) ---- */
+.emojiRemaining {
+  font-size: 1.8rem;
+  animation: emojiFadeIn 0.3s ease both;
+}
+
+/* ---- 연산 기호 (이모지 그룹 사이 -) ---- */
+.operatorSymbol {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #E67E22;
+}
+
+/* ---- 답안 버튼 그리드 ---- */
+.choicesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ---- 애니메이션 정의 ---- */
+
+@keyframes formulaAppear {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes emojiFadeIn {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 0.7; }
+  to { opacity: 0.3; }
+}
+
+/* ---- 반응형: 모바일 ---- */
+@media (max-width: 600px) {
+  .questionContainer {
+    padding: 12px;
+    gap: 16px;
+  }
+  .questionText {
+    font-size: 1.5rem;
+    padding: 12px 20px;
+  }
+  .formula {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+  }
+  .formulaCard {
+    padding: 20px 24px;
+  }
+  .emojiRemaining,
+  .emojiSubtracted {
+    font-size: 1.4rem;
+  }
+  .operatorSymbol {
+    font-size: 2rem;
+  }
+}

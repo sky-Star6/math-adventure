@@ -1,49 +1,269 @@
+/* ============================================================ */
+/* 🎨 globals.css - 앱 전체 디자인 시스템 (글로벌 CSS)            */
+/* ============================================================ */
+/* 이 파일은 앱 전체에서 사용하는 CSS 변수, 리셋 스타일,           */
+/* 그리고 애니메이션 키프레임을 정의합니다.                        */
+
+/* ============================================================ */
+/* 📐 CSS 변수(Custom Properties) 시스템                         */
+/* ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ------------------------------------------------------ */
+  /* 🎨 색상 팔레트 - 밝고 따뜻한 파스텔 톤                   */
+  /* ------------------------------------------------------ */
+  --color-primary: #6C63FF;         /* 메인 보라색 */
+  --color-primary-light: #8B85FF;   /* 밝은 보라색 (호버용) */
+  --color-secondary: #FF6B9D;       /* 포인트 핑크색 */
+  --color-success: #4ECDC4;         /* 정답/성공 초록색 */
+  --color-warning: #FFD93D;         /* 주의/경고 노란색 */
+  --color-danger: #FF6B6B;          /* 오답/위험 빨간색 */
+  --color-bg: #FFF5F5;              /* 앱 배경색 (아주 연한 핑크) */
+  --color-bg-gradient-start: #667eea; /* 배경 그라데이션 시작 */
+  --color-bg-gradient-end: #764ba2;   /* 배경 그라데이션 끝 */
+  --color-card: rgba(255, 255, 255, 0.85); /* 카드 배경 (반투명 흰색) */
+  --color-text: #2D3436;            /* 기본 텍스트 색상 (진한 회색) */
+  --color-text-light: #636E72;      /* 보조 텍스트 색상 (연한 회색) */
+
+  /* ------------------------------------------------------ */
+  /* 📏 폰트 크기 - 아이용으로 크게 설정                      */
+  /* ------------------------------------------------------ */
+  --font-size-sm: 1rem;      /* 16px - 가장 작은 텍스트 */
+  --font-size-md: 1.25rem;   /* 20px - 기본 텍스트 */
+  --font-size-lg: 1.5rem;    /* 24px - 중간 제목 */
+  --font-size-xl: 2rem;      /* 32px - 큰 제목 */
+  --font-size-2xl: 2.5rem;   /* 40px - 매우 큰 제목 */
+  --font-size-3xl: 3.5rem;   /* 56px - 메인 제목 */
+
+  /* ------------------------------------------------------ */
+  /* 📐 간격(Spacing) 시스템                                  */
+  /* ------------------------------------------------------ */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 0.75rem;  /* 12px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
+
+  /* ------------------------------------------------------ */
+  /* 🔘 둥근 모서리(Border Radius) 크기                       */
+  /* ------------------------------------------------------ */
+  --radius-sm: 12px;   /* 약간 둥근 모서리 */
+  --radius-md: 16px;   /* 보통 둥근 모서리 */
+  --radius-lg: 24px;   /* 많이 둥근 모서리 */
+  --radius-round: 50%; /* 완전한 원형 */
+
+  /* ------------------------------------------------------ */
+  /* 🌫️ 그림자(Shadow) 효과                                  */
+  /* ------------------------------------------------------ */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);        /* 가벼운 그림자 */
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);       /* 보통 그림자 */
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);       /* 깊은 그림자 */
+  --shadow-glow: 0 0 20px rgba(108, 99, 255, 0.3);   /* 보라색 빛나는 효과 */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================ */
+/* 🔄 리셋(Reset) & 기본 스타일                                  */
+/* ============================================================ */
+
+/* 모든 요소의 박스 모델을 border-box로 통일 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html {
-  height: 100%;
-}
-
-html,
+/* 전체 페이지 기본 스타일 */
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  /* 부드러운 파스텔 그라데이션 배경 */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  /* 텍스트 안티앨리어싱으로 부드러운 글씨 렌더링 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* 버튼 기본 스타일 리셋 */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
 }
 
+/* 입력 필드 기본 스타일 리셋 */
+input {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+/* 링크 기본 스타일 리셋 */
 a {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* ============================================================ */
+/* 🎬 애니메이션 키프레임 (Keyframes)                            */
+/* ============================================================ */
+
+/* 🏀 바운스(Bounce) - 톡톡 튀는 효과 */
+/* 버튼이나 카드가 나타날 때 사용 */
+@keyframes bounce {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 🌅 페이드인(FadeIn) - 서서히 나타나는 효과 */
+/* 페이지 전환이나 텍스트 표시에 사용 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ⬆️ 아래에서 위로 슬라이드(SlideUp) */
+/* 결과 화면이나 모달 등에 사용 */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 💓 펄스(Pulse) - 살짝 커졌다 작아지는 효과 */
+/* 강조하고 싶은 요소에 반복 적용 */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 🎊 축하(Confetti) - 축하 이모지가 떨어지는 효과 */
+/* 결과 화면에서 사용 */
+@keyframes confetti {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* 🫨 흔들림(Shake) - 좌우로 흔들리는 효과 */
+/* 오답 시 살짝 흔들어주는 용도 */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* 🎈 떠다니는(Float) 효과 - 위아래로 천천히 움직임 */
+/* 배경 장식 이모지 등에 사용 */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* ❓ 깜빡임(Blink) - 빈칸 표시에 사용 */
+/* 순서 맞추기 문제의 ? 표시 등에 사용 */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* 🌈 무지개 색상 변화 - 제목이나 특별한 텍스트에 사용 */
+@keyframes rainbow {
+  0% { color: #FF6B9D; }
+  16% { color: #FFD93D; }
+  33% { color: #4ECDC4; }
+  50% { color: #6C63FF; }
+  66% { color: #FF6B9D; }
+  83% { color: #A78BFA; }
+  100% { color: #FF6B9D; }
+}
+
+/* ⭐ 반짝임(Sparkle) - 별이 반짝이는 효과 */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+/* 🔄 회전(Spin) - 로딩 등에 사용 */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 📏 스케일 인(ScaleIn) - 중앙에서 커지면서 나타남 */
+@keyframes scaleIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }

@@ -1,0 +1,161 @@
+/* ============================================================
+   🔗 SequenceQuestion.module.css
+   순서 맞추기 문제 스타일
+   - 숫자 카드 가로 배치
+   - "?" 카드 깜빡이는 애니메이션
+   - 답안 버튼 그리드
+   ============================================================ */
+
+/* ---- 전체 문제 영역 ---- */
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* ---- 질문 텍스트 ---- */
+.questionText {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #C0392B;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(192, 57, 43, 0.1);
+}
+
+/* ---- 숫자 카드 나열 영역 ---- */
+.sequenceRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  /* 유리 효과 카드 */
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 24px;
+  padding: 24px 20px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  border: 2px solid rgba(252, 182, 159, 0.5);
+  width: 100%;
+}
+
+/* ---- 개별 숫자 카드 ---- */
+.numberCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  font-size: 2rem;
+  font-weight: 900;
+  /* 부드러운 등장 애니메이션 */
+  animation: cardPop 0.4s ease both;
+  /* 입체감 */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ---- 숫자가 있는 카드 (파스텔 배경) ---- */
+.filledCard {
+  background: linear-gradient(135deg, #FFECD2, #FCB69F);
+  color: #8B4513;
+  border: 2px solid rgba(252, 182, 159, 0.6);
+}
+
+/* ---- 빈칸 "?" 카드 ---- */
+.emptyCard {
+  background: linear-gradient(135deg, #FF9A9E, #FECFEF);
+  color: #C0392B;
+  border: 3px dashed #E74C3C;
+  /* 깜빡이는 애니메이션 */
+  animation: blinkCard 1.2s ease-in-out infinite;
+  font-size: 2.2rem;
+}
+
+/* ---- 카드 사이 화살표 ---- */
+.arrow {
+  font-size: 1.5rem;
+  color: #BDC3C7;
+  flex-shrink: 0;
+}
+
+/* ---- 답안 버튼 그리드 ---- */
+.choicesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ---- 애니메이션 정의 ---- */
+
+/* 카드 팝업 등장 */
+@keyframes cardPop {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* "?" 카드 깜빡임 */
+@keyframes blinkCard {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow:
+      0 4px 12px rgba(231, 76, 60, 0.2),
+      0 0 16px rgba(231, 76, 60, 0.1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+    box-shadow:
+      0 6px 20px rgba(231, 76, 60, 0.35),
+      0 0 24px rgba(231, 76, 60, 0.2);
+  }
+}
+
+/* ---- 반응형: 모바일 ---- */
+@media (max-width: 600px) {
+  .questionContainer {
+    padding: 12px;
+    gap: 16px;
+  }
+  .questionText {
+    font-size: 1.5rem;
+    padding: 12px 20px;
+  }
+  .sequenceRow {
+    padding: 16px 12px;
+    gap: 6px;
+  }
+  .numberCard {
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    border-radius: 12px;
+  }
+  .emptyCard {
+    font-size: 1.7rem;
+  }
+  .arrow {
+    font-size: 1rem;
+  }
+}

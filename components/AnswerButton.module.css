@@ -1,0 +1,132 @@
+/* ============================================================
+   🔘 AnswerButton.module.css
+   답안 선택 버튼 스타일
+   - 파스텔 배경 + 호버 효과
+   - 정답(초록)/오답(빨강) 상태별 색상
+   - bounce 애니메이션
+   ============================================================ */
+
+/* ---- 기본 버튼 스타일 ---- */
+.answerButton {
+  /* 최소 높이 60px (아이가 터치하기 쉽게) */
+  min-height: 60px;
+  /* 넉넉한 패딩 */
+  padding: 14px 28px;
+  /* 큰 글씨 */
+  font-size: 1.5rem;
+  font-weight: 700;
+  /* 파스텔 보라 배경 */
+  background: linear-gradient(135deg, #E8DAEF, #D5C8F0);
+  /* 글자 색상 */
+  color: #4A3580;
+  /* 테두리 없음 */
+  border: 3px solid transparent;
+  /* 둥근 모서리 */
+  border-radius: 20px;
+  /* 포인터 커서 */
+  cursor: pointer;
+  /* 부드러운 전환 효과 */
+  transition: all 0.25s ease;
+  /* 입체감을 주는 그림자 */
+  box-shadow:
+    0 4px 12px rgba(107, 92, 231, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.05);
+  /* 텍스트 가운데 정렬 */
+  text-align: center;
+  /* 전체 너비 사용 */
+  width: 100%;
+  /* 사용자 선택 방지 (드래그 방지) */
+  user-select: none;
+  /* 터치 시 하이라이트 제거 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- 호버 효과 ---- */
+.answerButton:hover:not(:disabled) {
+  /* 호버 시 위로 살짝 올라가는 느낌 */
+  transform: translateY(-3px);
+  /* 더 진한 그림자 */
+  box-shadow:
+    0 8px 20px rgba(107, 92, 231, 0.25),
+    0 4px 8px rgba(0, 0, 0, 0.08);
+  /* 살짝 밝아지는 배경 */
+  background: linear-gradient(135deg, #D5C8F0, #C3B1E8);
+  /* 테두리 강조 */
+  border-color: #A78BFA;
+}
+
+/* ---- 클릭(active) 효과 ---- */
+.answerButton:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(107, 92, 231, 0.15);
+}
+
+/* ---- 정답 상태 (초록색) ---- */
+.correct {
+  background: linear-gradient(135deg, #A8E6CF, #81D4A8) !important;
+  border-color: #4CAF50 !important;
+  color: #1B5E20 !important;
+  box-shadow:
+    0 4px 16px rgba(76, 175, 80, 0.3),
+    0 0 20px rgba(76, 175, 80, 0.15) !important;
+  /* 정답 선택 시 bounce 애니메이션 */
+  animation: bounceCorrect 0.5s ease;
+}
+
+/* ---- 오답 상태 (빨간색) ---- */
+.wrong {
+  background: linear-gradient(135deg, #FFCDD2, #F8BBD0) !important;
+  border-color: #EF5350 !important;
+  color: #B71C1C !important;
+  box-shadow:
+    0 4px 16px rgba(239, 83, 80, 0.3),
+    0 0 20px rgba(239, 83, 80, 0.15) !important;
+  /* 오답 선택 시 shake 애니메이션 */
+  animation: shakeWrong 0.4s ease;
+}
+
+/* ---- 비활성화 상태 ---- */
+.answerButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ---- 정답 bounce 애니메이션 ---- */
+@keyframes bounceCorrect {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.12);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ---- 오답 shake 애니메이션 ---- */
+@keyframes shakeWrong {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(-8px); }
+  30% { transform: translateX(8px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(6px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(0); }
+}
+
+/* ---- 반응형: 모바일 ---- */
+@media (max-width: 600px) {
+  .answerButton {
+    font-size: 1.3rem;
+    padding: 12px 20px;
+    min-height: 54px;
+    border-radius: 16px;
+  }
+}

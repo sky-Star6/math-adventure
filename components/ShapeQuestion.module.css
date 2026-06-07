@@ -1,0 +1,86 @@
+/* ============================================================
+   🔷 ShapeQuestion.module.css
+   모양 인식 문제 스타일
+   - 큰 도형 표시 + 4지선다 이름 버튼
+   ============================================================ */
+
+/* ---- 전체 문제 영역 ---- */
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- 질문 텍스트 ---- */
+.questionText {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #6B3FA0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(107, 63, 160, 0.1);
+}
+
+/* ---- 도형 표시 영역 ---- */
+.shapeDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 유리 효과 카드 */
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 28px;
+  padding: 40px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  border: 2px solid rgba(161, 142, 205, 0.4);
+  min-height: 200px;
+  width: 100%;
+  /* 부드러운 등장 */
+  animation: shapeAreaAppear 0.5s ease;
+}
+
+/* ---- 답안 버튼 그리드 ---- */
+.choicesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ---- 애니메이션 ---- */
+@keyframes shapeAreaAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ---- 반응형: 모바일 ---- */
+@media (max-width: 600px) {
+  .questionContainer {
+    padding: 12px;
+    gap: 16px;
+  }
+  .questionText {
+    font-size: 1.5rem;
+    padding: 12px 20px;
+  }
+  .shapeDisplay {
+    padding: 24px;
+    min-height: 150px;
+  }
+}

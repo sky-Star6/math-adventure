@@ -1,0 +1,257 @@
+/* ============================================================ */
+/* 📊 records/page.module.css - 학습 기록 화면 전용 스타일        */
+/* ============================================================ */
+/* 기록 카드 목록, 빈 상태 메시지, 삭제 버튼 등                   */
+
+/* ------------------------------------------------------ */
+/* 📦 전체 컨테이너                                         */
+/* ------------------------------------------------------ */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  /* 차분한 파스텔 그라데이션 배경 */
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 50%, #a8edea 100%);
+}
+
+/* ------------------------------------------------------ */
+/* 📦 메인 카드                                            */
+/* ------------------------------------------------------ */
+.mainCard {
+  background: var(--color-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-2xl);
+  width: 100%;
+  max-width: 800px;
+  animation: slideUp 0.6s ease-out;
+}
+
+/* ------------------------------------------------------ */
+/* 📋 헤더 (제목 + 버튼)                                    */
+/* ------------------------------------------------------ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.headerButtons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* 돌아가기 버튼 */
+.backButton {
+  padding: var(--spacing-xs) var(--spacing-lg);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(108, 99, 255, 0.15);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+}
+
+.backButton:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 기록 삭제 버튼 */
+.clearButton {
+  padding: var(--spacing-xs) var(--spacing-lg);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-danger);
+  background: rgba(255, 107, 107, 0.1);
+  border: 2px solid rgba(255, 107, 107, 0.2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+}
+
+.clearButton:hover {
+  background: rgba(255, 107, 107, 0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ------------------------------------------------------ */
+/* 📭 기록이 없을 때                                        */
+/* ------------------------------------------------------ */
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  animation: fadeIn 0.6s ease-out;
+}
+
+.emptyEmoji {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: var(--spacing-md);
+  animation: float 3s ease-in-out infinite;
+}
+
+.emptyText {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------ */
+/* 📋 기록 카드 목록                                        */
+/* ------------------------------------------------------ */
+.recordList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* 개별 기록 카드 */
+.recordCard {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.recordCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* 문제 유형 이모지 (왼쪽) */
+.recordEmoji {
+  font-size: var(--font-size-2xl);
+  min-width: 50px;
+  text-align: center;
+}
+
+/* 기록 상세 정보 (가운데) */
+.recordInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recordType {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.recordMeta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* 점수 뱃지 (오른쪽) */
+.recordScore {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  min-width: 70px;
+  text-align: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* 점수에 따른 색상 분류 */
+.scoreHigh {
+  color: var(--color-success);
+  background: rgba(78, 205, 196, 0.15);
+}
+
+.scoreMedium {
+  color: var(--color-warning);
+  background: rgba(255, 217, 61, 0.15);
+}
+
+.scoreLow {
+  color: var(--color-danger);
+  background: rgba(255, 107, 107, 0.15);
+}
+
+/* 기록의 이름 표시 */
+.recordName {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------ */
+/* 📱 반응형 디자인 (태블릿)                                */
+/* ------------------------------------------------------ */
+@media (max-width: 768px) {
+  .mainCard {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+
+  .recordCard {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
+
+/* ------------------------------------------------------ */
+/* 📱 반응형 디자인 (모바일)                                */
+/* ------------------------------------------------------ */
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .mainCard {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    border-radius: var(--radius-md);
+  }
+
+  .recordCard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .recordMeta {
+    justify-content: center;
+  }
+
+  .headerButtons {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

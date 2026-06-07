@@ -1,0 +1,104 @@
+/* ============================================================ */
+/* 🧩 quiz/page.module.css - 퀴즈 화면 전용 스타일               */
+/* ============================================================ */
+/* 문제를 풀 때 보이는 화면의 디자인                              */
+/* 진행 상황 바, 문제 카드, 애니메이션 등                         */
+
+/* ------------------------------------------------------ */
+/* 📦 전체 컨테이너                                         */
+/* ------------------------------------------------------ */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  /* 부드러운 보라색~파란색 그라데이션 배경 */
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #d299c2 100%);
+  position: relative;
+}
+
+/* ------------------------------------------------------ */
+/* 📊 상단 진행 영역                                        */
+/* ------------------------------------------------------ */
+.header {
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: var(--spacing-xl);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.questionInfo {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ------------------------------------------------------ */
+/* 🎯 문제 카드 (메인 영역)                                 */
+/* ------------------------------------------------------ */
+.questionCard {
+  background: var(--color-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-2xl);
+  width: 100%;
+  max-width: 700px;
+  /* 문제가 바뀔 때마다 살짝 올라오는 애니메이션 */
+  animation: slideUp 0.4s ease-out;
+}
+
+/* ------------------------------------------------------ */
+/* ⏳ 로딩 화면                                            */
+/* ------------------------------------------------------ */
+.loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 50%, #d299c2 100%);
+}
+
+.loadingEmoji {
+  font-size: 4rem;
+  animation: bounce 1s ease-in-out infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+.loadingText {
+  font-size: var(--font-size-xl);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------ */
+/* 📱 반응형 디자인 (태블릿)                                */
+/* ------------------------------------------------------ */
+@media (max-width: 768px) {
+  .questionCard {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .questionInfo {
+    font-size: var(--font-size-md);
+  }
+}
+
+/* ------------------------------------------------------ */
+/* 📱 반응형 디자인 (모바일)                                */
+/* ------------------------------------------------------ */
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .questionCard {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    border-radius: var(--radius-md);
+  }
+}

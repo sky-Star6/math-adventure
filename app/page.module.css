@@ -1,142 +1,442 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
+/* ============================================================ */
+/* 🏠 page.module.css - 홈 화면 전용 스타일                       */
+/* ============================================================ */
+/* 글래스모피즘, 파스텔 그라데이션, 큰 버튼, 호버 효과 등          */
+/* 아이들이 좋아하는 밝고 귀여운 디자인                           */
 
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
+/* ------------------------------------------------------ */
+/* 📦 전체 컨테이너 - 페이지 레이아웃                       */
+/* ------------------------------------------------------ */
+.container {
+  min-height: 100vh;
   display: flex;
-  flex: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  padding: var(--spacing-xl) var(--spacing-md);
+  /* 부드러운 파스텔 그라데이션 배경 */
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.main {
-  display: flex;
-  flex: 1;
+/* 배경 장식 이모지 (떠다니는 효과) */
+.container::before {
+  content: '⭐🌈✨🎈🌸';
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  animation: float 4s ease-in-out infinite;
+  opacity: 0.6;
+  pointer-events: none;
+  letter-spacing: 10px;
+}
+
+.container::after {
+  content: '🦋🌻🍎💫🎀';
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  font-size: 2rem;
+  animation: float 5s ease-in-out infinite 1s;
+  opacity: 0.6;
+  pointer-events: none;
+  letter-spacing: 10px;
+}
+
+/* ------------------------------------------------------ */
+/* 🌐 언어 전환 버튼 (상단 우측)                            */
+/* ------------------------------------------------------ */
+.langButton {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--color-card);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  z-index: 100;
+}
+
+.langButton:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* ------------------------------------------------------ */
+/* 📝 메인 카드 (글래스모피즘)                              */
+/* ------------------------------------------------------ */
+.mainCard {
+  background: var(--color-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-2xl);
   width: 100%;
   max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  animation: slideUp 0.6s ease-out;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+/* ------------------------------------------------------ */
+/* 🎯 제목 영역                                            */
+/* ------------------------------------------------------ */
+.titleSection {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-xs);
+  animation: bounce 0.8s ease-out;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  animation: fadeIn 0.8s ease-out 0.3s both;
 }
 
-.intro a {
+/* ------------------------------------------------------ */
+/* 👤 이름 입력 필드                                        */
+/* ------------------------------------------------------ */
+.nameSection {
+  margin-bottom: var(--spacing-xl);
+  animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+.nameLabel {
+  display: block;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
   font-weight: 500;
-  color: var(--text-primary);
 }
 
-.ctas {
-  display: flex;
-  flex-direction: row;
+.nameInput {
   width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-lg);
+  border: 2px solid rgba(108, 99, 255, 0.2);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--color-text);
+  transition: all 0.3s ease;
 }
 
-.ctas a {
+.nameInput::placeholder {
+  color: #b2bec3;
+}
+
+.nameInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glow);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* ------------------------------------------------------ */
+/* 📋 섹션 제목 (문제 유형, 난이도, 문제 수)                */
+/* ------------------------------------------------------ */
+.sectionTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+/* ------------------------------------------------------ */
+/* 🎮 문제 유형 카드 그리드                                 */
+/* ------------------------------------------------------ */
+.typeSection {
+  margin-bottom: var(--spacing-xl);
+  animation: fadeIn 0.6s ease-out 0.3s both;
+}
+
+.typeGrid {
+  display: grid;
+  /* 반응형 그리드: 최소 140px, 자동으로 열 수 조절 */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-md);
+}
+
+/* 개별 문제 유형 카드 */
+.typeCard {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
+  justify-content: center;
+  padding: var(--spacing-lg) var(--spacing-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  min-height: 120px;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.typeCard:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-lg);
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+/* 선택된 카드 스타일 */
+.typeCardSelected {
+  border-color: white;
+  box-shadow: var(--shadow-glow), 0 0 0 3px rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+.typeEmoji {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-xs);
+}
+
+.typeName {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  text-align: center;
+}
+
+.typeDesc {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  text-align: center;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ------------------------------------------------------ */
+/* ⚡ 난이도 선택 버튼                                     */
+/* ------------------------------------------------------ */
+.difficultySection {
+  margin-bottom: var(--spacing-xl);
+  animation: fadeIn 0.6s ease-out 0.4s both;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.difficultyButton {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--color-text);
+  border: 3px solid rgba(108, 99, 255, 0.15);
+  transition: all 0.3s ease;
+  min-width: 140px;
+  min-height: 60px;
+}
+
+.difficultyButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* 선택된 난이도 버튼 */
+.difficultyButtonSelected {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: white;
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+  transform: scale(1.05);
+}
+
+/* ------------------------------------------------------ */
+/* 🔢 문제 수 선택 버튼                                    */
+/* ------------------------------------------------------ */
+.countSection {
+  margin-bottom: var(--spacing-xl);
+  animation: fadeIn 0.6s ease-out 0.5s both;
+}
+
+.countButton {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--color-text);
+  border: 3px solid rgba(78, 205, 196, 0.15);
+  transition: all 0.3s ease;
+  min-width: 100px;
+  min-height: 60px;
+}
+
+.countButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* 선택된 문제 수 버튼 */
+.countButtonSelected {
+  background: linear-gradient(135deg, var(--color-success), #45B7D1);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+  transform: scale(1.05);
+}
+
+/* ------------------------------------------------------ */
+/* 🚀 시작 버튼                                            */
+/* ------------------------------------------------------ */
+.startSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  animation: fadeIn 0.6s ease-out 0.6s both;
+}
+
+.startButton {
+  padding: var(--spacing-md) var(--spacing-2xl);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--radius-lg);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-md);
+  min-height: 70px;
+  min-width: 250px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.startButton:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.startButton:active {
+  transform: scale(0.98);
+}
+
+/* ------------------------------------------------------ */
+/* 📊 기록 보기 버튼                                       */
+/* ------------------------------------------------------ */
+.recordsButton {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-light);
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(108, 99, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 50px;
+}
+
+.recordsButton:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-primary);
+}
+
+/* ------------------------------------------------------ */
+/* 📱 반응형 디자인 (태블릿)                                */
+/* ------------------------------------------------------ */
+@media (max-width: 768px) {
+  .mainCard {
+    padding: var(--spacing-xl) var(--spacing-md);
   }
 
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-size-md);
+  }
+
+  .typeGrid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+  }
+
+  .typeCard {
+    padding: var(--spacing-md) var(--spacing-xs);
+    min-height: 100px;
+  }
+
+  .typeEmoji {
+    font-size: var(--font-size-xl);
+  }
+
+  .startButton {
+    font-size: var(--font-size-lg);
+    min-width: 200px;
   }
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
+/* ------------------------------------------------------ */
+/* 📱 반응형 디자인 (모바일)                                */
+/* ------------------------------------------------------ */
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-md) var(--spacing-sm);
   }
 
-  .intro {
-    gap: 16px;
+  .mainCard {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    border-radius: var(--radius-md);
   }
 
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+  .title {
+    font-size: var(--font-size-xl);
   }
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+  .sectionTitle {
+    font-size: var(--font-size-lg);
+  }
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+  .typeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .difficultyButton,
+  .countButton {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .startButton {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .container::before,
+  .container::after {
+    display: none;
   }
 }

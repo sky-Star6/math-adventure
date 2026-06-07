@@ -1,0 +1,168 @@
+/* ============================================================
+   ⚖️ ComparisonQuestion.module.css
+   크기 비교 문제 스타일
+   - 좌우 숫자 배치 + 크기 시각화 블록 바
+   - 가운데 비교 연산자 버튼 (<, =, >)
+   ============================================================ */
+
+/* ---- 전체 문제 영역 ---- */
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* ---- 질문 텍스트 ---- */
+.questionText {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #8B4585;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(139, 69, 133, 0.1);
+}
+
+/* ---- 비교 영역 (좌 - 가운데 - 우) ---- */
+.comparisonArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  /* 유리 효과 카드 */
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 24px;
+  padding: 28px 24px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  border: 2px solid rgba(250, 208, 196, 0.5);
+}
+
+/* ---- 숫자 카드 (왼쪽/오른쪽) ---- */
+.numberCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  padding: 16px;
+  animation: cardSlideIn 0.5s ease;
+}
+
+/* 왼쪽 카드가 왼쪽에서 슬라이드 */
+.leftCard {
+  animation-name: slideFromLeft;
+}
+
+/* 오른쪽 카드가 오른쪽에서 슬라이드 */
+.rightCard {
+  animation-name: slideFromRight;
+}
+
+/* ---- 큰 숫자 표시 ---- */
+.bigNumber {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #2C3E50;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ---- 크기 시각화 블록 바 ---- */
+.blockBar {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 28px;
+}
+
+/* ---- 개별 블록 (1칸 = 1 단위) ---- */
+.block {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  animation: blockPop 0.3s ease both;
+}
+
+/* 왼쪽 숫자 블록 색상 (파스텔 파랑) */
+.leftBlock {
+  background: linear-gradient(135deg, #A1C4FD, #74A9F5);
+  box-shadow: 0 2px 6px rgba(116, 169, 245, 0.3);
+}
+
+/* 오른쪽 숫자 블록 색상 (파스텔 분홍) */
+.rightBlock {
+  background: linear-gradient(135deg, #FECFEF, #F8A4D0);
+  box-shadow: 0 2px 6px rgba(248, 164, 208, 0.3);
+}
+
+/* ---- 가운데 VS 텍스트 ---- */
+.vsText {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #9B59B6;
+  flex-shrink: 0;
+  text-shadow: 0 2px 4px rgba(155, 89, 182, 0.2);
+}
+
+/* ---- 비교 연산자 버튼 그리드 ---- */
+.choicesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ---- 애니메이션 정의 ---- */
+
+@keyframes slideFromLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideFromRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes blockPop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ---- 반응형: 모바일 ---- */
+@media (max-width: 600px) {
+  .questionContainer {
+    padding: 12px;
+    gap: 16px;
+  }
+  .questionText {
+    font-size: 1.5rem;
+    padding: 12px 20px;
+  }
+  .comparisonArea {
+    padding: 20px 12px;
+    gap: 12px;
+  }
+  .bigNumber {
+    font-size: 2.8rem;
+  }
+  .block {
+    width: 18px;
+    height: 18px;
+  }
+  .vsText {
+    font-size: 1.5rem;
+  }
+}

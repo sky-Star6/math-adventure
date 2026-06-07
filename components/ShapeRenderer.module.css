@@ -1,0 +1,184 @@
+/* ============================================================
+   🔷 ShapeRenderer.module.css
+   CSS만으로 도형을 그리는 스타일 모음
+   - 원(circle), 삼각형(triangle), 사각형(square),
+     별(star), 하트(heart), 마름모(diamond) 지원
+   ============================================================ */
+
+/* ---- 도형 공통 컨테이너 ---- */
+.shapeContainer {
+  /* 도형을 감싸는 박스 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 130px;
+  /* 부드러운 등장 애니메이션 */
+  animation: shapeAppear 0.5s ease-out;
+}
+
+/* ---- 원(Circle) ---- */
+.circle {
+  width: 120px;
+  height: 120px;
+  /* border-radius를 50%로 하면 완벽한 원 */
+  border-radius: 50%;
+  background-color: #FF6B9D;
+  /* 그림자로 입체감 부여 */
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+}
+
+/* ---- 삼각형(Triangle) ---- */
+.triangle {
+  /* 삼각형은 border trick으로 구현 */
+  width: 0;
+  height: 0;
+  /* 밑변 크기를 결정하는 좌우 border */
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  /* 아래쪽 border가 삼각형의 높이와 색상 */
+  border-bottom: 104px solid #4ECDC4;
+  /* 삼각형은 filter로 그림자 적용 (box-shadow 미지원) */
+  filter: drop-shadow(0 6px 10px rgba(78, 205, 196, 0.4));
+}
+
+/* ---- 사각형(Square) ---- */
+.square {
+  width: 110px;
+  height: 110px;
+  background-color: #45B7D1;
+  /* 살짝 둥근 모서리 */
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(69, 183, 209, 0.4);
+}
+
+/* ---- 별(Star) - clip-path 사용 ---- */
+.star {
+  width: 120px;
+  height: 120px;
+  background-color: #F7DC6F;
+  /* 별 모양을 만드는 clip-path (5각 별) */
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  filter: drop-shadow(0 6px 10px rgba(247, 220, 111, 0.5));
+}
+
+/* ---- 하트(Heart) - pseudo elements 사용 ---- */
+.heart {
+  /* 하트의 아래쪽 뾰족한 부분 */
+  position: relative;
+  width: 100px;
+  height: 90px;
+  /* 45도 회전한 사각형이 하트의 아랫부분 */
+  background-color: #FF6F91;
+  transform: rotate(45deg);
+  /* 아랫부분을 살짝 둥글게 */
+  border-radius: 0 0 10px 0;
+  filter: drop-shadow(0 6px 10px rgba(255, 111, 145, 0.4));
+}
+
+/* 하트 왼쪽 위 동그라미 */
+.heart::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: #FF6F91;
+  border-radius: 50%;
+  /* 왼쪽 위에 배치 */
+  left: -50px;
+  top: 0;
+}
+
+/* 하트 오른쪽 위 동그라미 */
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: #FF6F91;
+  border-radius: 50%;
+  /* 오른쪽 위에 배치 */
+  top: -50px;
+  left: 0;
+}
+
+/* ---- 마름모(Diamond) - transform rotate 사용 ---- */
+.diamond {
+  width: 90px;
+  height: 90px;
+  background-color: #A78BFA;
+  /* 45도 회전시켜 마름모 모양 만들기 */
+  transform: rotate(45deg);
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4);
+}
+
+/* ---- 도형 등장 애니메이션 ---- */
+@keyframes shapeAppear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---- 반응형: 태블릿 이하에서는 크기를 약간 줄임 ---- */
+@media (max-width: 600px) {
+  .shapeContainer {
+    width: 100px;
+    height: 100px;
+  }
+  .circle {
+    width: 90px;
+    height: 90px;
+  }
+  .triangle {
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    border-bottom: 78px solid #4ECDC4;
+  }
+  .square {
+    width: 80px;
+    height: 80px;
+  }
+  .star {
+    width: 90px;
+    height: 90px;
+  }
+  .heart {
+    width: 75px;
+    height: 67px;
+  }
+  .heart::before {
+    width: 75px;
+    height: 75px;
+    left: -37px;
+  }
+  .heart::after {
+    width: 75px;
+    height: 75px;
+    top: -37px;
+  }
+  .diamond {
+    width: 70px;
+    height: 70px;
+  }
+}
