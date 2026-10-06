@@ -1,34 +1,34 @@
+﻿// ============================================================
+// ?룧 page.tsx - ???붾㈃ (硫붿씤 ?섏씠吏)
 // ============================================================
-// 🏠 page.tsx - 홈 화면 (메인 페이지)
-// ============================================================
-// 아이들이 처음 보는 화면입니다!
-// 이름 입력, 문제 유형/난이도/문제 수 선택, 시작 버튼이 있습니다.
+// ?꾩씠?ㅼ씠 泥섏쓬 蹂대뒗 ?붾㈃?낅땲??
+// ?대쫫 ?낅젰, 臾몄젣 ?좏삎/?쒖씠??臾몄젣 ???좏깮, ?쒖옉 踰꾪듉???덉뒿?덈떎.
 'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-// 타입 import
+// ???import
 import type {
   QuestionType,
   Difficulty,
   Language,
   QuizConfig,
 } from '@/lib/types';
-// 상수 import
+// ?곸닔 import
 import {
   QUESTION_TYPE_INFO,
   QUESTION_COUNT_OPTIONS,
 } from '@/lib/constants';
-// 다국어 텍스트 함수 import
+// ?ㅺ뎅???띿뒪???⑥닔 import
 import { t } from '@/lib/i18n';
-// 효과음 import
+// ?④낵??import
 import { playClickSound } from '@/lib/sounds';
 // CSS Module import
 import styles from './page.module.css';
 
 /**
- * 7가지 문제 유형 목록
- * - constants.ts의 QUESTION_TYPE_INFO 키와 동일
+ * 7媛吏 臾몄젣 ?좏삎 紐⑸줉
+ * - constants.ts??QUESTION_TYPE_INFO ?ㅼ? ?숈씪
  */
 const QUESTION_TYPES: QuestionType[] = [
   'counting',
@@ -41,42 +41,42 @@ const QUESTION_TYPES: QuestionType[] = [
 ];
 
 /**
- * 3가지 난이도 목록
+ * 3媛吏 ?쒖씠??紐⑸줉
  */
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard'];
 
 /**
- * 🏠 홈 화면 컴포넌트
- * 퀴즈를 시작하기 전에 옵션을 선택하는 화면
+ * ?룧 ???붾㈃ 而댄룷?뚰듃
+ * ?댁쫰瑜??쒖옉?섍린 ?꾩뿉 ?듭뀡???좏깮?섎뒗 ?붾㈃
  */
 export default function HomePage() {
-  // Next.js 라우터 - 페이지 이동에 사용
+  // Next.js ?쇱슦??- ?섏씠吏 ?대룞???ъ슜
   const router = useRouter();
 
   // --------------------------------------------------
-  // 📦 상태(State) 관리
+  // ?벀 ?곹깭(State) 愿由?
   // --------------------------------------------------
 
-  /** 플레이어 이름 (선택적 입력) */
+  /** ?뚮젅?댁뼱 ?대쫫 (?좏깮???낅젰) */
   const [playerName, setPlayerName] = useState<string>('');
 
-  /** 선택된 문제 유형 (기본값: 숫자 세기) */
+  /** ?좏깮??臾몄젣 ?좏삎 (湲곕낯媛? ?レ옄 ?멸린) */
   const [questionType, setQuestionType] = useState<QuestionType>('counting');
 
-  /** 선택된 난이도 (기본값: 쉬움) */
+  /** ?좏깮???쒖씠??(湲곕낯媛? ?ъ?) */
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
 
-  /** 문제 수 (기본값: 5문제) */
+  /** 臾몄젣 ??(湲곕낯媛? 5臾몄젣) */
   const [questionCount, setQuestionCount] = useState<number>(5);
 
-  /** 현재 언어 (기본값: 한국어) */
+  /** ?꾩옱 ?몄뼱 (湲곕낯媛? ?쒓뎅?? */
   const [language, setLanguage] = useState<Language>('ko');
 
   // --------------------------------------------------
-  // 🔄 언어 설정 복원 (페이지 로드 시)
+  // ?봽 ?몄뼱 ?ㅼ젙 蹂듭썝 (?섏씠吏 濡쒕뱶 ??
   // --------------------------------------------------
   useEffect(() => {
-    // sessionStorage에 저장된 언어 설정이 있으면 복원
+    // sessionStorage????λ맂 ?몄뼱 ?ㅼ젙???덉쑝硫?蹂듭썝
     const savedLang = sessionStorage.getItem('math_app_language');
     if (savedLang === 'ko' || savedLang === 'en') {
       setLanguage(savedLang);
@@ -84,11 +84,11 @@ export default function HomePage() {
   }, []);
 
   // --------------------------------------------------
-  // 🌐 언어 전환 함수
+  // ?뙋 ?몄뼱 ?꾪솚 ?⑥닔
   // --------------------------------------------------
   /**
-   * 언어를 한국어 ↔ 영어로 전환합니다.
-   * 전환 후 sessionStorage에 저장하여 다른 페이지에서도 유지됩니다.
+   * ?몄뼱瑜??쒓뎅?????곸뼱濡??꾪솚?⑸땲??
+   * ?꾪솚 ??sessionStorage????ν븯???ㅻⅨ ?섏씠吏?먯꽌???좎??⑸땲??
    */
   const toggleLanguage = () => {
     const newLang: Language = language === 'ko' ? 'en' : 'ko';
@@ -98,14 +98,14 @@ export default function HomePage() {
   };
 
   // --------------------------------------------------
-  // 🚀 퀴즈 시작 함수
+  // ?? ?댁쫰 ?쒖옉 ?⑥닔
   // --------------------------------------------------
   /**
-   * 선택한 옵션들로 QuizConfig를 만들어
-   * sessionStorage에 저장한 후 /quiz 페이지로 이동합니다.
+   * ?좏깮???듭뀡?ㅻ줈 QuizConfig瑜?留뚮뱾??
+   * sessionStorage????ν븳 ??/quiz ?섏씠吏濡??대룞?⑸땲??
    */
   const handleStart = () => {
-    // QuizConfig 객체 생성
+    // QuizConfig 媛앹껜 ?앹꽦
     const config: QuizConfig = {
       playerName: playerName.trim(),
       questionType,
@@ -113,20 +113,20 @@ export default function HomePage() {
       questionCount,
     };
 
-    // sessionStorage에 JSON 문자열로 저장
-    // (페이지 간 데이터 전달 목적)
+    // sessionStorage??JSON 臾몄옄?대줈 ???
+    // (?섏씠吏 媛??곗씠???꾨떖 紐⑹쟻)
     sessionStorage.setItem('quiz_config', JSON.stringify(config));
 
-    // 효과음 재생 후 퀴즈 페이지로 이동
+    // ?④낵???ъ깮 ???댁쫰 ?섏씠吏濡??대룞
     playClickSound();
     router.push('/quiz');
   };
 
   // --------------------------------------------------
-  // 📊 기록 보기 함수
+  // ?뱤 湲곕줉 蹂닿린 ?⑥닔
   // --------------------------------------------------
   /**
-   * 학습 기록 페이지로 이동합니다.
+   * ?숈뒿 湲곕줉 ?섏씠吏濡??대룞?⑸땲??
    */
   const handleViewRecords = () => {
     playClickSound();
@@ -134,24 +134,24 @@ export default function HomePage() {
   };
 
   // --------------------------------------------------
-  // 🖥️ 화면 렌더링
+  // ?뼢截??붾㈃ ?뚮뜑留?
   // --------------------------------------------------
   return (
     <div className={styles.container}>
-      {/* 🌐 언어 전환 버튼 (상단 우측 고정) */}
+      {/* ?뙋 ?몄뼱 ?꾪솚 踰꾪듉 (?곷떒 ?곗륫 怨좎젙) */}
       <button className={styles.langButton} onClick={toggleLanguage}>
         {t(language, 'common.lang')}
       </button>
 
-      {/* 📦 메인 카드 (글래스모피즘) */}
+      {/* ?벀 硫붿씤 移대뱶 (湲?섏뒪紐⑦뵾利? */}
       <div className={styles.mainCard}>
-        {/* 🎯 제목 영역 */}
+        {/* ?렞 ?쒕ぉ ?곸뿭 */}
         <div className={styles.titleSection}>
           <h1 className={styles.title}>{t(language, 'home.title')}</h1>
           <p className={styles.subtitle}>{t(language, 'home.subtitle')}</p>
         </div>
 
-        {/* 👤 이름 입력 (선택적) */}
+        {/* ?뫀 ?대쫫 ?낅젰 (?좏깮?? */}
         <div className={styles.nameSection}>
           <label className={styles.nameLabel} htmlFor="playerName">
             {t(language, 'home.nameLabel')}
@@ -167,14 +167,14 @@ export default function HomePage() {
           />
         </div>
 
-        {/* 🎮 문제 유형 선택 */}
+        {/* ?렜 臾몄젣 ?좏삎 ?좏깮 */}
         <div className={styles.typeSection}>
           <h2 className={styles.sectionTitle}>
             {t(language, 'home.selectType')}
           </h2>
           <div className={styles.typeGrid}>
             {QUESTION_TYPES.map((type) => {
-              // 각 유형의 아이콘과 그라데이션 색상 가져오기
+              // 媛??좏삎???꾩씠肄섍낵 洹몃씪?곗씠???됱긽 媛?몄삤湲?
               const info = QUESTION_TYPE_INFO[type];
               const isSelected = questionType === type;
 
@@ -182,21 +182,19 @@ export default function HomePage() {
                 <button
                   key={type}
                   className={`${styles.typeCard} ${isSelected ? styles.typeCardSelected : ''}`}
-                  style={{
-                    background: `linear-gradient(135deg, ${info.colorFrom}, ${info.colorTo})`,
-                  }}
+                  style={{ backgroundColor: isSelected ? info.colorFrom : "white", color: isSelected ? "white" : "var(--color-text)", borderColor: isSelected ? info.colorFrom : "transparent" }}
                   onClick={() => {
                     setQuestionType(type);
                     playClickSound();
                   }}
                 >
-                  {/* 문제 유형 이모지 */}
+                  {/* 臾몄젣 ?좏삎 ?대え吏 */}
                   <span className={styles.typeEmoji}>{info.emoji}</span>
-                  {/* 문제 유형 이름 */}
+                  {/* 臾몄젣 ?좏삎 ?대쫫 */}
                   <span className={styles.typeName}>
                     {t(language, `type.${type}`)}
                   </span>
-                  {/* 문제 유형 설명 */}
+                  {/* 臾몄젣 ?좏삎 ?ㅻ챸 */}
                   <span className={styles.typeDesc}>
                     {t(language, `type.${type}.desc`)}
                   </span>
@@ -206,7 +204,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ⚡ 난이도 선택 */}
+        {/* ???쒖씠???좏깮 */}
         <div className={styles.difficultySection}>
           <h2 className={styles.sectionTitle}>
             {t(language, 'home.selectDifficulty')}
@@ -230,7 +228,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 🔢 문제 수 선택 */}
+        {/* ?뵢 臾몄젣 ???좏깮 */}
         <div className={styles.countSection}>
           <h2 className={styles.sectionTitle}>
             {t(language, 'home.selectCount')}
@@ -254,7 +252,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 🚀 시작 & 기록 보기 버튼 */}
+        {/* ?? ?쒖옉 & 湲곕줉 蹂닿린 踰꾪듉 */}
         <div className={styles.startSection}>
           <button className={styles.startButton} onClick={handleStart}>
             {t(language, 'home.startButton')}
@@ -267,3 +265,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+

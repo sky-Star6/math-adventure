@@ -1,11 +1,11 @@
+﻿/* ============================================================ */
+/* ?룧 page.module.css - ???붾㈃ ?꾩슜 ?ㅽ???                      */
 /* ============================================================ */
-/* 🏠 page.module.css - 홈 화면 전용 스타일                       */
-/* ============================================================ */
-/* 글래스모피즘, 파스텔 그라데이션, 큰 버튼, 호버 효과 등          */
-/* 아이들이 좋아하는 밝고 귀여운 디자인                           */
+/* 湲?섏뒪紐⑦뵾利? ?뚯뒪??洹몃씪?곗씠?? ??踰꾪듉, ?몃쾭 ?④낵 ??         */
+/* ?꾩씠?ㅼ씠 醫뗭븘?섎뒗 諛앷퀬 洹?ъ슫 ?붿옄??                          */
 
 /* ------------------------------------------------------ */
-/* 📦 전체 컨테이너 - 페이지 레이아웃                       */
+/* ?벀 ?꾩껜 而⑦뀒?대꼫 - ?섏씠吏 ?덉씠?꾩썐                       */
 /* ------------------------------------------------------ */
 .container {
   min-height: 100vh;
@@ -13,15 +13,15 @@
   flex-direction: column;
   align-items: center;
   padding: var(--spacing-xl) var(--spacing-md);
-  /* 부드러운 파스텔 그라데이션 배경 */
+  /* 遺?쒕윭???뚯뒪??洹몃씪?곗씠??諛곌꼍 */
   background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
   position: relative;
   overflow: hidden;
 }
 
-/* 배경 장식 이모지 (떠다니는 효과) */
+/* 諛곌꼍 ?μ떇 ?대え吏 (?좊떎?덈뒗 ?④낵) */
 .container::before {
-  content: '⭐🌈✨🎈🌸';
+  content: '狩먳윁댿쑉?럥?뙵';
   position: absolute;
   top: 20px;
   right: 30px;
@@ -33,7 +33,7 @@
 }
 
 .container::after {
-  content: '🦋🌻🍎💫🎀';
+  content: '?쫳?뙸?뜋?뮟??';
   position: absolute;
   bottom: 20px;
   left: 30px;
@@ -45,7 +45,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 🌐 언어 전환 버튼 (상단 우측)                            */
+/* ?뙋 ?몄뼱 ?꾪솚 踰꾪듉 (?곷떒 ?곗륫)                            */
 /* ------------------------------------------------------ */
 .langButton {
   position: fixed;
@@ -71,7 +71,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 📝 메인 카드 (글래스모피즘)                              */
+/* ?뱷 硫붿씤 移대뱶 (湲?섏뒪紐⑦뵾利?                              */
 /* ------------------------------------------------------ */
 .mainCard {
   background: var(--color-card);
@@ -86,7 +86,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 🎯 제목 영역                                            */
+/* ?렞 ?쒕ぉ ?곸뿭                                            */
 /* ------------------------------------------------------ */
 .titleSection {
   text-align: center;
@@ -96,7 +96,7 @@
 .title {
   font-size: var(--font-size-3xl);
   font-weight: 700;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: var(--color-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,7 +111,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 👤 이름 입력 필드                                        */
+/* ?뫀 ?대쫫 ?낅젰 ?꾨뱶                                        */
 /* ------------------------------------------------------ */
 .nameSection {
   margin-bottom: var(--spacing-xl);
@@ -148,7 +148,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 📋 섹션 제목 (문제 유형, 난이도, 문제 수)                */
+/* ?뱥 ?뱀뀡 ?쒕ぉ (臾몄젣 ?좏삎, ?쒖씠?? 臾몄젣 ??                */
 /* ------------------------------------------------------ */
 .sectionTitle {
   font-size: var(--font-size-xl);
@@ -159,7 +159,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 🎮 문제 유형 카드 그리드                                 */
+/* ?렜 臾몄젣 ?좏삎 移대뱶 洹몃━??                                */
 /* ------------------------------------------------------ */
 .typeSection {
   margin-bottom: var(--spacing-xl);
@@ -168,12 +168,12 @@
 
 .typeGrid {
   display: grid;
-  /* 반응형 그리드: 최소 140px, 자동으로 열 수 조절 */
+  /* 諛섏쓳??洹몃━?? 理쒖냼 140px, ?먮룞?쇰줈 ????議곗젅 */
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--spacing-md);
 }
 
-/* 개별 문제 유형 카드 */
+/* 媛쒕퀎 臾몄젣 ?좏삎 移대뱶 */
 .typeCard {
   display: flex;
   flex-direction: column;
@@ -184,8 +184,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border: 3px solid transparent;
-  color: white;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  
   min-height: 120px;
 }
 
@@ -194,12 +193,8 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* 선택된 카드 스타일 */
-.typeCardSelected {
-  border-color: white;
-  box-shadow: var(--shadow-glow), 0 0 0 3px rgba(255, 255, 255, 0.5);
-  transform: scale(1.05);
-}
+/* ?좏깮??移대뱶 ?ㅽ???*/
+.typeCardSelected { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
 .typeEmoji {
   font-size: var(--font-size-2xl);
@@ -221,7 +216,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* ⚡ 난이도 선택 버튼                                     */
+/* ???쒖씠???좏깮 踰꾪듉                                     */
 /* ------------------------------------------------------ */
 .difficultySection {
   margin-bottom: var(--spacing-xl);
@@ -254,17 +249,11 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
-/* 선택된 난이도 버튼 */
-.difficultyButtonSelected {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-  color: white;
-  border-color: transparent;
-  box-shadow: var(--shadow-glow);
-  transform: scale(1.05);
-}
+/* ?좏깮???쒖씠??踰꾪듉 */
+.difficultyButtonSelected { background: var(--color-primary); color: white; border-color: var(--color-primary); box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4); transform: scale(1.05); }
 
 /* ------------------------------------------------------ */
-/* 🔢 문제 수 선택 버튼                                    */
+/* ?뵢 臾몄젣 ???좏깮 踰꾪듉                                    */
 /* ------------------------------------------------------ */
 .countSection {
   margin-bottom: var(--spacing-xl);
@@ -290,17 +279,11 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
-/* 선택된 문제 수 버튼 */
-.countButtonSelected {
-  background: linear-gradient(135deg, var(--color-success), #45B7D1);
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
-  transform: scale(1.05);
-}
+/* ?좏깮??臾몄젣 ??踰꾪듉 */
+.countButtonSelected { background: var(--color-success); color: white; border-color: var(--color-success); box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4); transform: scale(1.05); }
 
 /* ------------------------------------------------------ */
-/* 🚀 시작 버튼                                            */
+/* ?? ?쒖옉 踰꾪듉                                            */
 /* ------------------------------------------------------ */
 .startSection {
   display: flex;
@@ -315,7 +298,7 @@
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: white;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: var(--color-primary);
   border-radius: var(--radius-lg);
   border: none;
   cursor: pointer;
@@ -336,7 +319,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 📊 기록 보기 버튼                                       */
+/* ?뱤 湲곕줉 蹂닿린 踰꾪듉                                       */
 /* ------------------------------------------------------ */
 .recordsButton {
   padding: var(--spacing-sm) var(--spacing-xl);
@@ -359,7 +342,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 📱 반응형 디자인 (태블릿)                                */
+/* ?벑 諛섏쓳???붿옄??(?쒕툝由?                                */
 /* ------------------------------------------------------ */
 @media (max-width: 768px) {
   .mainCard {
@@ -395,7 +378,7 @@
 }
 
 /* ------------------------------------------------------ */
-/* 📱 반응형 디자인 (모바일)                                */
+/* ?벑 諛섏쓳???붿옄??(紐⑤컮??                                */
 /* ------------------------------------------------------ */
 @media (max-width: 480px) {
   .container {
@@ -440,3 +423,9 @@
     display: none;
   }
 }
+
+
+
+
+
+
