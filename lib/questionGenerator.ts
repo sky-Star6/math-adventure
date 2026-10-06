@@ -106,6 +106,7 @@ function generateCountingQuestion(difficulty: Difficulty, id: number): Question 
   return {
     id,
     type: 'counting',
+    difficulty,
     questionTextKey: 'quiz.counting.question',
     visualData: { emoji, count },
     choices,
@@ -129,6 +130,7 @@ function generateAdditionQuestion(difficulty: Difficulty, id: number): Question 
   return {
     id,
     type: 'addition',
+    difficulty,
     questionTextKey: 'quiz.addition.question',
     visualData: {
       num1,
@@ -160,6 +162,7 @@ function generateSubtractionQuestion(difficulty: Difficulty, id: number): Questi
   return {
     id,
     type: 'subtraction',
+    difficulty,
     questionTextKey: 'quiz.subtraction.question',
     visualData: {
       num1,
@@ -196,6 +199,7 @@ function generateComparisonQuestion(difficulty: Difficulty, id: number): Questio
   return {
     id,
     type: 'comparison',
+    difficulty,
     questionTextKey: 'quiz.comparison.question',
     visualData: { leftNum, rightNum },
     choices,
@@ -227,6 +231,7 @@ function generateShapeQuestion(difficulty: Difficulty, id: number): Question {
   return {
     id,
     type: 'shape',
+    difficulty,
     questionTextKey: 'quiz.shape.question',
     visualData: { shapeName: correctShape.id },
     choices,
@@ -270,6 +275,7 @@ function generateSequenceQuestion(difficulty: Difficulty, id: number): Question 
   return {
     id,
     type: 'sequence',
+    difficulty,
     questionTextKey: 'quiz.sequence.question',
     visualData: { numberSequence },
     choices,

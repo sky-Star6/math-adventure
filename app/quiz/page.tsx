@@ -254,6 +254,7 @@ export default function QuizPage() {
             onAnswer={handleAnswer}
             disabled={disabled}
             lang={language}
+            difficulty={config.difficulty}
           />
         );
       case 'subtraction':
@@ -263,6 +264,7 @@ export default function QuizPage() {
             onAnswer={handleAnswer}
             disabled={disabled}
             lang={language}
+            difficulty={config.difficulty}
           />
         );
       case 'comparison':

@@ -22,10 +22,10 @@ export type QuestionType =
   | 'mixed';
 
 /**
- * 난이도(Difficulty) 타입
- * - easy: 쉬움 (작은 숫자, 기본 도형)
- * - medium: 보통 (중간 범위)
- * - hard: 어려움 (큰 숫자, 다양한 도형)
+ * 난이도(Difficulty) 타입 - 연령별 난이도 구분
+ * - easy: 5~6세 (유아 기초: 1~5 숫자 범위, 시각적 그림 보조 제공)
+ * - medium: 7세 (예비 초등: 1~10 숫자 범위, 시각적 그림 보조 제공)
+ * - hard: 8세 (초등 1학년: 1~20 숫자 범위, 더하기/빼기 시 그림 없이 수식만으로 연산)
  */
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
@@ -45,6 +45,8 @@ export interface Question {
   id: number;
   /** 문제 유형 (mixed 제외) */
   type: Exclude<QuestionType, 'mixed'>;
+  /** 해당 문제의 난이도 (연령대) */
+  difficulty: Difficulty;
   /** 문제 텍스트 (한국어 키) */
   questionTextKey: string;
   /** 문제에 사용할 시각적 데이터 (이모지, 숫자 등) */

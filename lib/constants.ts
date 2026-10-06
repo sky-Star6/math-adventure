@@ -16,23 +16,23 @@ export const COUNTING_EMOJIS = [
 ];
 
 /**
- * 난이도별 숫자 범위 설정
- * 각 난이도에 따라 문제에 사용되는 숫자의 최소/최대값
+ * 난이도(연령)별 숫자 범위 설정
+ * 각 연령에 따라 문제에 사용되는 숫자의 최소/최대값
  */
 export const DIFFICULTY_RANGES: Record<Difficulty, { min: number; max: number }> = {
-  easy: { min: 1, max: 5 },      // 쉬움: 1~5 범위
-  medium: { min: 1, max: 10 },   // 보통: 1~10 범위
-  hard: { min: 1, max: 20 },     // 어려움: 1~20 범위
+  easy: { min: 1, max: 5 },      // 5~6세: 1~5 범위 (기초 숫자 세기)
+  medium: { min: 1, max: 10 },   // 7세: 1~10 범위 (10 이하의 수)
+  hard: { min: 1, max: 20 },     // 8세 (초등 1학년): 1~20 범위
 };
 
 /**
  * 덧셈/뺄셈에서 사용할 숫자 범위
- * 결과가 한 자리 수를 넘지 않도록 조절
+ * 연령대에 맞추어 계산 가능한 적절한 범위 설정
  */
 export const OPERATION_RANGES: Record<Difficulty, { min: number; max: number }> = {
-  easy: { min: 1, max: 5 },      // 쉬움: 1~5 범위 (합: 최대 10)
-  medium: { min: 1, max: 9 },    // 보통: 1~9 범위 (합: 최대 18)
-  hard: { min: 1, max: 9 },      // 어려움: 1~9 범위 (합: 최대 18)
+  easy: { min: 1, max: 5 },      // 5~6세: 1~5 범위 (합: 최대 10, 그림 보조 제공)
+  medium: { min: 1, max: 9 },    // 7세: 1~9 범위 (한 자리 수 연산, 그림 보조 제공)
+  hard: { min: 1, max: 9 },      // 8세 (초등 1학년): 1~9 범위 (그림 없이 순수 수식 연산)
 };
 
 /**

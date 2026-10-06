@@ -10,37 +10,39 @@
 // ============================================================
 
 import { useState } from 'react';
-import { Question, Language } from '../lib/types';
+import { Question, Language, Difficulty } from '../lib/types';
 import { t } from '../lib/i18n';
 import AnswerButton from './AnswerButton';
 import styles from './AdditionQuestion.module.css';
 
 /**
  * AdditionQuestion 컴포넌트의 Props 타입
- * @property question - 현재 문제 데이터 (num1, num2, operator 포함)
+ * @property question - 현재 문제 데이터 (num1, num2, operator, difficulty 포함)
  * @property onAnswer - 사용자가 답을 선택했을 때 호출할 콜백
  * @property disabled - 답 선택 비활성화 여부
  * @property lang - 현재 선택된 언어
+ * @property difficulty - (선택) 난이도/연령 설정. 지정되지 않으면 question.difficulty 사용
  */
 interface AdditionQuestionProps {
   question: Question;
   onAnswer: (answer: string) => void;
   disabled: boolean;
   lang: Language;
+  difficulty?: Difficulty;
 }
 
 /**
  * AdditionQuestion 컴포넌트
- * 덧셈 수식을 큰 글씨로 보여주고, 숫자 옆에 이모지를 배치하여
- * 시각적으로 덧셈 개념을 이해할 수 있도록 합니다.
- *
- * 예: 🍎🍎🍎 + 🍎🍎 = ?  →  3 + 2 = ?
+ * 덧셈 수식을 큰 글씨로 보여줍니다.
+ * - 5~6세(easy), 7세(medium): 이모지 그림 보조(visualAid)를 함께 표시하여 직관적 이해를 돕습니다.
+ * - 8세 초등 1학년(hard): 그림 보조를 제거하고 수식만으로 직접 연산하도록 합니다.
  */
 export default function AdditionQuestion({
   question,
   onAnswer,
   disabled,
   lang,
+  difficulty,
 }: AdditionQuestionProps) {
   // 사용자가 선택한 답 (아직 선택 안 했으면 null)
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -71,6 +73,11 @@ export default function AdditionQuestion({
     return 'default';
   };
 
+  // 현재 적용할 난이도 (props로 전달받았거나 문제 자체에 기록된 난이도)
+  const currentDifficulty = difficulty ?? question.difficulty;
+  // 8세 초등 1학년(hard) 난이도인지 확인: hard인 경우 하단 이모지 그림을 삭제합니다.
+  const isHardDifficulty = currentDifficulty === 'hard';
+
   return (
     <div className={styles.questionContainer}>
       {/* 질문 텍스트 */}
@@ -88,37 +95,39 @@ export default function AdditionQuestion({
           <span className={styles.questionMark}>?</span>
         </div>
 
-        {/* 이모지 시각적 보조: 숫자 옆에 이모지를 해당 개수만큼 표시 */}
-        <div className={styles.visualAid}>
-          {/* 첫 번째 숫자 이모지 그룹 */}
-          <div className={styles.emojiGroup}>
-            {Array.from({ length: num1 }, (_, i) => (
-              <span
-                key={`a-${i}`}
-                className={styles.emojiItem}
-                style={{ animationDelay: `${i * 0.06}s` }}
-              >
-                {emoji}
-              </span>
-            ))}
-          </div>
+        {/* 이모지 시각적 보조: 8세(hard) 난이도가 아닐 때만(5~6세, 7세) 표시 */}
+        {!isHardDifficulty && (
+          <div className={styles.visualAid}>
+            {/* 첫 번째 숫자 이모지 그룹 */}
+            <div className={styles.emojiGroup}>
+              {Array.from({ length: num1 }, (_, i) => (
+                <span
+                  key={`a-${i}`}
+                  className={styles.emojiItem}
+                  style={{ animationDelay: `${i * 0.06}s` }}
+                >
+                  {emoji}
+                </span>
+              ))}
+            </div>
 
-          {/* + 기호 */}
-          <span className={styles.operatorSymbol}>+</span>
+            {/* + 기호 */}
+            <span className={styles.operatorSymbol}>+</span>
 
-          {/* 두 번째 숫자 이모지 그룹 */}
-          <div className={styles.emojiGroup}>
-            {Array.from({ length: num2 }, (_, i) => (
-              <span
-                key={`b-${i}`}
-                className={styles.emojiItem}
-                style={{ animationDelay: `${(num1 + i) * 0.06}s` }}
-              >
-                {emoji}
-              </span>
-            ))}
+            {/* 두 번째 숫자 이모지 그룹 */}
+            <div className={styles.emojiGroup}>
+              {Array.from({ length: num2 }, (_, i) => (
+                <span
+                  key={`b-${i}`}
+                  className={styles.emojiItem}
+                  style={{ animationDelay: `${(num1 + i) * 0.06}s` }}
+                >
+                  {emoji}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* 답안 보기 버튼 (2×2 그리드) */}

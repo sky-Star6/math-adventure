@@ -16,7 +16,7 @@ const translations: Record<Language, Record<string, string>> = {
     'home.nameLabel': '이름을 알려줘! (안 써도 돼요)',
     'home.namePlaceholder': '이름을 입력하세요',
     'home.selectType': '어떤 문제를 풀래?',
-    'home.selectDifficulty': '난이도를 골라봐!',
+    'home.selectDifficulty': '나이를 골라봐!',
     'home.selectCount': '몇 문제 풀래?',
     'home.startButton': '🚀 시작하기!',
     'home.records': '📊 기록 보기',
@@ -39,10 +39,10 @@ const translations: Record<Language, Record<string, string>> = {
     'type.sequence.desc': '빈칸에 들어갈 수를 찾아요!',
     'type.mixed.desc': '여러 가지 문제를 섞어서 풀어요!',
 
-    // === 난이도 ===
-    'difficulty.easy': '😊 쉬움',
-    'difficulty.medium': '🤔 보통',
-    'difficulty.hard': '🔥 어려움',
+    // === 난이도 (연령별) ===
+    'difficulty.easy': '🌱 5~6세',
+    'difficulty.medium': '🌿 7세',
+    'difficulty.hard': '🌳 8세 (초1)',
 
     // === 퀴즈 화면 ===
     'quiz.question': '문제',
@@ -85,7 +85,7 @@ const translations: Record<Language, Record<string, string>> = {
     'home.nameLabel': 'What\'s your name? (optional)',
     'home.namePlaceholder': 'Enter your name',
     'home.selectType': 'Choose a problem type!',
-    'home.selectDifficulty': 'Pick a difficulty!',
+    'home.selectDifficulty': 'Pick an age!',
     'home.selectCount': 'How many problems?',
     'home.startButton': '🚀 Start!',
     'home.records': '📊 View Records',
@@ -108,10 +108,10 @@ const translations: Record<Language, Record<string, string>> = {
     'type.sequence.desc': 'Find the missing number!',
     'type.mixed.desc': 'Solve all kinds of problems!',
 
-    // === Difficulty ===
-    'difficulty.easy': '😊 Easy',
-    'difficulty.medium': '🤔 Medium',
-    'difficulty.hard': '🔥 Hard',
+    // === Difficulty (By Age) ===
+    'difficulty.easy': '🌱 Ages 5-6',
+    'difficulty.medium': '🌿 Age 7',
+    'difficulty.hard': '🌳 Age 8 (Grade 1)',
 
     // === Quiz Screen ===
     'quiz.question': 'Question',
