@@ -55,11 +55,24 @@ export const QUESTION_TYPE_INFO = {
   counting: { emoji: '🔢', colorFrom: '#FF9A9E', colorTo: '#FECFEF' },
   addition: { emoji: '➕', colorFrom: '#A1C4FD', colorTo: '#C2E9FB' },
   subtraction: { emoji: '➖', colorFrom: '#D4FC79', colorTo: '#96E6A1' },
+  multiplication: { emoji: '✖️', colorFrom: '#FFA07A', colorTo: '#FF7675' },
   comparison: { emoji: '⚖️', colorFrom: '#FAD0C4', colorTo: '#FFD1FF' },
   shape: { emoji: '🔷', colorFrom: '#A18CD1', colorTo: '#FBC2EB' },
   sequence: { emoji: '🔗', colorFrom: '#FFECD2', colorTo: '#FCB69F' },
   mixed: { emoji: '🔀', colorFrom: '#84FAB0', colorTo: '#8FD3F4' },
 } as const;
+
+/**
+ * 곱셈(구구단)에서 사용할 단(num1)과 곱하는 수(num2) 범위
+ * - easy: 레벨 1 (2단, 5단, 1~5까지 곱하기, 묶음 그림 보조)
+ * - medium: 레벨 2 (2단~5단, 1~9까지 곱하기, 묶음 그림 보조)
+ * - hard: 레벨 3 (2단~9단 전체, 1~9까지 곱하기, 식만 풀기)
+ */
+export const MULTIPLICATION_RANGES: Record<Difficulty, { tables: number[]; maxMultiplier: number }> = {
+  easy: { tables: [2, 5], maxMultiplier: 5 },
+  medium: { tables: [2, 3, 4, 5], maxMultiplier: 9 },
+  hard: { tables: [2, 3, 4, 5, 6, 7, 8, 9], maxMultiplier: 9 },
+};
 
 /**
  * 점수에 따른 등급 & 메시지 (한국어/영어)

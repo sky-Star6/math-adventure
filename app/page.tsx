@@ -28,13 +28,14 @@ import { playClickSound } from '@/lib/sounds';
 import styles from './page.module.css';
 
 /**
- * 제공되는 7가지 문제 유형(Question Type) 목록
- * - 숫자 세기, 덧셈, 뺄셈, 크기 비교, 모양 인식, 순서 맞추기, 혼합 모드
+ * 제공되는 8가지 문제 유형(Question Type) 목록
+ * - 숫자 세기, 덧셈, 뺄셈, 곱셈, 크기 비교, 모양 인식, 순서 맞추기, 혼합 모드
  */
 const QUESTION_TYPES: QuestionType[] = [
   'counting',
   'addition',
   'subtraction',
+  'multiplication',
   'comparison',
   'shape',
   'sequence',

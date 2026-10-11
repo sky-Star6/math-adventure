@@ -8,6 +8,7 @@ import {
   COUNTING_EMOJIS,
   DIFFICULTY_RANGES,
   OPERATION_RANGES,
+  MULTIPLICATION_RANGES,
   SHAPES,
 } from './constants';
 
@@ -176,6 +177,61 @@ function generateSubtractionQuestion(difficulty: Difficulty, id: number): Questi
 }
 
 /**
+ * ✖️ 곱셈(구구단) 문제 생성
+ * 두 수의 곱을 구하는 문제 (레벨에 따라 2단~9단)
+ */
+function generateMultiplicationQuestion(difficulty: Difficulty, id: number): Question {
+  const config = MULTIPLICATION_RANGES[difficulty];
+  const num1 = randomChoice(config.tables);
+  const num2 = randomInt(1, config.maxMultiplier);
+
+  const answer = num1 * num2;
+
+  // 오답 보기 생성: 구구단 특성에 맞춰 헷갈리는 오답 후보 생성
+  const wrongAnswers = new Set<number>();
+  const candidates = [
+    answer + num1, // 1배 더한 값 (다음 곱)
+    answer - num1, // 1배 뺀 값 (이전 곱)
+    answer + 1,
+    answer - 1,
+    answer + 2,
+    answer - 2,
+    num1 * (num2 + 2),
+    (num1 + 1) * num2,
+  ];
+
+  for (const cand of shuffleArray(candidates)) {
+    if (cand > 0 && cand !== answer && !wrongAnswers.has(cand)) {
+      wrongAnswers.add(cand);
+      if (wrongAnswers.size >= 3) break;
+    }
+  }
+
+  // 3개가 안 채워졌으면 기본 오답 생성기로 보충
+  if (wrongAnswers.size < 3) {
+    const fallback = generateWrongAnswers(answer, 1, Math.max(answer + 10, 81), 3 - wrongAnswers.size);
+    fallback.forEach((val) => wrongAnswers.add(val));
+  }
+
+  const choices = shuffleArray([answer, ...Array.from(wrongAnswers)]).map(String);
+
+  return {
+    id,
+    type: 'multiplication',
+    difficulty,
+    questionTextKey: 'quiz.multiplication.question',
+    visualData: {
+      num1,
+      num2,
+      operator: '×',
+      emoji: randomChoice(COUNTING_EMOJIS),
+    },
+    choices,
+    correctAnswer: String(answer),
+  };
+}
+
+/**
  * ⚖️ 크기 비교 문제 생성
  * 두 수를 비교하여 >, <, = 를 맞추는 문제
  */
@@ -302,6 +358,8 @@ function generateSingleQuestion(
       return generateAdditionQuestion(difficulty, id);
     case 'subtraction':
       return generateSubtractionQuestion(difficulty, id);
+    case 'multiplication':
+      return generateMultiplicationQuestion(difficulty, id);
     case 'comparison':
       return generateComparisonQuestion(difficulty, id);
     case 'shape':
@@ -335,9 +393,9 @@ export function generateQuestions(
     return questions;
   }
 
-  // 🔀 혼합 모드: 6가지 유형을 골고루 섞어서 출제
+  // 🔀 혼합 모드: 7가지 유형을 골고루 섞어서 출제
   const allTypes: Exclude<QuestionType, 'mixed'>[] = [
-    'counting', 'addition', 'subtraction', 'comparison', 'shape', 'sequence',
+    'counting', 'addition', 'subtraction', 'multiplication', 'comparison', 'shape', 'sequence',
   ];
 
   for (let i = 0; i < count; i++) {

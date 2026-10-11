@@ -7,6 +7,7 @@
  * - counting: 숫자 세기 (아이콘 개수 맞추기)
  * - addition: 덧셈 (한 자리 수 더하기)
  * - subtraction: 뺄셈 (한 자리 수 빼기)
+ * - multiplication: 곱셈 (구구단 연산)
  * - comparison: 크기 비교 (더 큰 수, 더 작은 수)
  * - shape: 모양 인식 (도형 이름 맞추기)
  * - sequence: 순서 맞추기 (빈칸 채우기)
@@ -16,6 +17,7 @@ export type QuestionType =
   | 'counting'
   | 'addition'
   | 'subtraction'
+  | 'multiplication'
   | 'comparison'
   | 'shape'
   | 'sequence'

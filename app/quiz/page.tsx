@@ -30,6 +30,7 @@ import FeedbackOverlay from '@/components/FeedbackOverlay';
 import CountingQuestion from '@/components/CountingQuestion';
 import AdditionQuestion from '@/components/AdditionQuestion';
 import SubtractionQuestion from '@/components/SubtractionQuestion';
+import MultiplicationQuestion from '@/components/MultiplicationQuestion';
 import ComparisonQuestion from '@/components/ComparisonQuestion';
 import ShapeQuestion from '@/components/ShapeQuestion';
 import SequenceQuestion from '@/components/SequenceQuestion';
@@ -260,6 +261,16 @@ export default function QuizPage() {
       case 'subtraction':
         return (
           <SubtractionQuestion
+            question={currentQuestion}
+            onAnswer={handleAnswer}
+            disabled={disabled}
+            lang={language}
+            difficulty={config.difficulty}
+          />
+        );
+      case 'multiplication':
+        return (
+          <MultiplicationQuestion
             question={currentQuestion}
             onAnswer={handleAnswer}
             disabled={disabled}

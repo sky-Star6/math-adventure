@@ -1,0 +1,211 @@
+/* ============================================================
+   ✖️ MultiplicationQuestion.module.css
+   곱셈 문제 전용 스타일
+   - 큰 구구단 수식 + 직관적인 묶음 상자 시각화 + 보기 버튼 그리드
+   ============================================================ */
+
+/* ---- 전체 문제 영역 ---- */
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ---- 질문 텍스트 ---- */
+.questionText {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #D35400;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 14px 28px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(211, 84, 0, 0.1);
+}
+
+/* ---- 수식 카드 (예: 2 × 3 = ?) ---- */
+.formulaCard {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 24px 28px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  border: 3px solid #FFA07A;
+  width: 100%;
+  text-align: center;
+}
+
+/* ---- 수식 텍스트 ---- */
+.formula {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #2D3436;
+  letter-spacing: 4px;
+  animation: formulaAppear 0.4s ease;
+}
+
+/* ---- 곱셈 연산 기호 (×) ---- */
+.operator {
+  color: #FF7675;
+  margin: 0 8px;
+}
+
+/* ---- 물음표 (?) ---- */
+.questionMark {
+  color: #E67E22;
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* ---- 시각적 묶음 보조 영역 ---- */
+.visualAid {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---- 묶음 설명 안내 텍스트 ---- */
+.groupExplanation {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #E67E22;
+  background: #FFF5EB;
+  border: 2px dashed #FFA07A;
+  padding: 6px 16px;
+  border-radius: 12px;
+}
+
+/* ---- 묶음 상자 리스트 ---- */
+.groupBoxList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 540px;
+}
+
+/* ---- 개별 묶음 상자 ---- */
+.groupBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  background: #FFFDF9;
+  border: 2px solid #FFA07A;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(255, 160, 122, 0.15);
+  animation: boxFadeIn 0.3s ease both;
+}
+
+/* ---- 몇 번째 묶음인지 나타내는 뱃지 ---- */
+.groupIndexBadge {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  background: #FF7675;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 800;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ---- 묶음 안의 이모지들 ---- */
+.groupEmojis {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.emojiItem {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* ---- 답안 4지선다 그리드 ---- */
+.choicesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ---- 애니메이션 키프레임 ---- */
+@keyframes formulaAppear {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes boxFadeIn {
+  0% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ---- 모바일 반응형 ---- */
+@media (max-width: 600px) {
+  .questionText {
+    font-size: 1.4rem;
+    padding: 10px 20px;
+  }
+
+  .formula {
+    font-size: 2.6rem;
+    letter-spacing: 2px;
+  }
+
+  .formulaCard {
+    padding: 16px 14px;
+  }
+
+  .groupExplanation {
+    font-size: 0.9rem;
+  }
+
+  .emojiItem {
+    font-size: 1.3rem;
+  }
+
+  .groupBox {
+    padding: 8px 10px;
+  }
+
+  .choicesGrid {
+    gap: 10px;
+  }
+}
