@@ -1,34 +1,35 @@
-﻿// ============================================================
-// ?룧 page.tsx - ???붾㈃ (硫붿씤 ?섏씠吏)
 // ============================================================
-// ?꾩씠?ㅼ씠 泥섏쓬 蹂대뒗 ?붾㈃?낅땲??
-// ?대쫫 ?낅젰, 臾몄젣 ?좏삎/?쒖씠??臾몄젣 ???좏깮, ?쒖옉 踰꾪듉???덉뒿?덈떎.
+// 🏠 app/page.tsx - 홈 화면 (메인 페이지)
+// ============================================================
+// 아이들이 앱을 켰을 때 가장 먼저 마주하는 홈 화면입니다.
+// 이름 입력, 문제 유형 선택, 레벨(난이도) 선택, 문제 수 선택,
+// 그리고 시작하기 버튼으로 구성되어 있습니다.
 'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-// ???import
+// 타입(Type) 정의 가져오기
 import type {
   QuestionType,
   Difficulty,
   Language,
   QuizConfig,
 } from '@/lib/types';
-// ?곸닔 import
+// 상수(Constants) 정의 가져오기
 import {
   QUESTION_TYPE_INFO,
   QUESTION_COUNT_OPTIONS,
 } from '@/lib/constants';
-// ?ㅺ뎅???띿뒪???⑥닔 import
+// 다국어(i18n, Internationalization) 텍스트 함수 가져오기
 import { t } from '@/lib/i18n';
-// ?④낵??import
+// 효과음(Sound Effect) 함수 가져오기
 import { playClickSound } from '@/lib/sounds';
-// CSS Module import
+// CSS 모듈(CSS Module) 가져오기
 import styles from './page.module.css';
 
 /**
- * 7媛吏 臾몄젣 ?좏삎 紐⑸줉
- * - constants.ts??QUESTION_TYPE_INFO ?ㅼ? ?숈씪
+ * 제공되는 7가지 문제 유형(Question Type) 목록
+ * - 숫자 세기, 덧셈, 뺄셈, 크기 비교, 모양 인식, 순서 맞추기, 혼합 모드
  */
 const QUESTION_TYPES: QuestionType[] = [
   'counting',
@@ -41,42 +42,44 @@ const QUESTION_TYPES: QuestionType[] = [
 ];
 
 /**
- * 3媛吏 ?쒖씠??紐⑸줉
+ * 3가지 레벨(Level / Difficulty) 목록
+ * - easy: 레벨 1
+ * - medium: 레벨 2
+ * - hard: 레벨 3
  */
 const DIFFICULTIES: Difficulty[] = ['easy', 'medium', 'hard'];
 
 /**
- * ?룧 ???붾㈃ 而댄룷?뚰듃
- * ?댁쫰瑜??쒖옉?섍린 ?꾩뿉 ?듭뀡???좏깮?섎뒗 ?붾㈃
+ * 홈 페이지 메인 컴포넌트(Component)
  */
 export default function HomePage() {
-  // Next.js ?쇱슦??- ?섏씠吏 ?대룞???ъ슜
+  // Next.js 라우터(Router) - 페이지 이동에 사용
   const router = useRouter();
 
   // --------------------------------------------------
-  // ?벀 ?곹깭(State) 愿由?
+  // 📦 상태 관리 (State Management)
   // --------------------------------------------------
 
-  /** ?뚮젅?댁뼱 ?대쫫 (?좏깮???낅젰) */
+  /** 플레이어 이름 (선택적 입력) */
   const [playerName, setPlayerName] = useState<string>('');
 
-  /** ?좏깮??臾몄젣 ?좏삎 (湲곕낯媛? ?レ옄 ?멸린) */
+  /** 선택된 문제 유형 (기본값: 숫자 세기) */
   const [questionType, setQuestionType] = useState<QuestionType>('counting');
 
-  /** ?좏깮???쒖씠??(湲곕낯媛? ?ъ?) */
+  /** 선택된 레벨/난이도 (기본값: easy = 레벨 1) */
   const [difficulty, setDifficulty] = useState<Difficulty>('easy');
 
-  /** 臾몄젣 ??(湲곕낯媛? 5臾몄젣) */
+  /** 문제 개수 (기본값: 5문제) */
   const [questionCount, setQuestionCount] = useState<number>(5);
 
-  /** ?꾩옱 ?몄뼱 (湲곕낯媛? ?쒓뎅?? */
+  /** 현재 표시 언어 (기본값: 한국어 'ko') */
   const [language, setLanguage] = useState<Language>('ko');
 
   // --------------------------------------------------
-  // ?봽 ?몄뼱 ?ㅼ젙 蹂듭썝 (?섏씠吏 濡쒕뱶 ??
+  // 🔄 언어 설정 복원 (페이지 최초 로드 시)
   // --------------------------------------------------
   useEffect(() => {
-    // sessionStorage????λ맂 ?몄뼱 ?ㅼ젙???덉쑝硫?蹂듭썝
+    // 세션 저장소(sessionStorage)에 저장된 언어 설정이 있다면 복원
     const savedLang = sessionStorage.getItem('math_app_language');
     if (savedLang === 'ko' || savedLang === 'en') {
       setLanguage(savedLang);
@@ -84,11 +87,10 @@ export default function HomePage() {
   }, []);
 
   // --------------------------------------------------
-  // ?뙋 ?몄뼱 ?꾪솚 ?⑥닔
+  // 🌐 언어 전환 함수
   // --------------------------------------------------
   /**
-   * ?몄뼱瑜??쒓뎅?????곸뼱濡??꾪솚?⑸땲??
-   * ?꾪솚 ??sessionStorage????ν븯???ㅻⅨ ?섏씠吏?먯꽌???좎??⑸땲??
+   * 한국어(ko)와 영어(en)를 상호 전환합니다.
    */
   const toggleLanguage = () => {
     const newLang: Language = language === 'ko' ? 'en' : 'ko';
@@ -98,14 +100,63 @@ export default function HomePage() {
   };
 
   // --------------------------------------------------
-  // ?? ?댁쫰 ?쒖옉 ?⑥닔
+  // ◀ ▶ 레벨(난이도) 세모 버튼 핸들러
   // --------------------------------------------------
   /**
-   * ?좏깮???듭뀡?ㅻ줈 QuizConfig瑜?留뚮뱾??
-   * sessionStorage????ν븳 ??/quiz ?섏씠吏濡??대룞?⑸땲??
+   * 이전 레벨(더 쉬운 레벨)로 이동하는 함수
+   */
+  const handlePrevDifficulty = () => {
+    const currentIndex = DIFFICULTIES.indexOf(difficulty);
+    if (currentIndex > 0) {
+      setDifficulty(DIFFICULTIES[currentIndex - 1]);
+      playClickSound();
+    }
+  };
+
+  /**
+   * 다음 레벨(더 높은 레벨)로 이동하는 함수
+   */
+  const handleNextDifficulty = () => {
+    const currentIndex = DIFFICULTIES.indexOf(difficulty);
+    if (currentIndex < DIFFICULTIES.length - 1) {
+      setDifficulty(DIFFICULTIES[currentIndex + 1]);
+      playClickSound();
+    }
+  };
+
+  // --------------------------------------------------
+  // ◀ ▶ 문제 수 세모 버튼 핸들러
+  // --------------------------------------------------
+  /**
+   * 이전 문제 수(더 적은 문제 수)로 이동하는 함수
+   */
+  const handlePrevCount = () => {
+    const currentIndex = QUESTION_COUNT_OPTIONS.indexOf(questionCount);
+    if (currentIndex > 0) {
+      setQuestionCount(QUESTION_COUNT_OPTIONS[currentIndex - 1]);
+      playClickSound();
+    }
+  };
+
+  /**
+   * 다음 문제 수(더 많은 문제 수)로 이동하는 함수
+   */
+  const handleNextCount = () => {
+    const currentIndex = QUESTION_COUNT_OPTIONS.indexOf(questionCount);
+    if (currentIndex < QUESTION_COUNT_OPTIONS.length - 1) {
+      setQuestionCount(QUESTION_COUNT_OPTIONS[currentIndex + 1]);
+      playClickSound();
+    }
+  };
+
+  // --------------------------------------------------
+  // 🚀 퀴즈 시작 함수
+  // --------------------------------------------------
+  /**
+   * 선택된 옵션들을 묶어서 퀴즈 설정(QuizConfig) 객체를 생성하고,
+   * 세션 저장소(sessionStorage)에 저장한 뒤 퀴즈 페이지(/quiz)로 이동합니다.
    */
   const handleStart = () => {
-    // QuizConfig 媛앹껜 ?앹꽦
     const config: QuizConfig = {
       playerName: playerName.trim(),
       questionType,
@@ -113,45 +164,41 @@ export default function HomePage() {
       questionCount,
     };
 
-    // sessionStorage??JSON 臾몄옄?대줈 ???
-    // (?섏씠吏 媛??곗씠???꾨떖 紐⑹쟻)
+    // 페이지 간 데이터 전달을 위해 세션 저장소에 직렬화(JSON)하여 저장
     sessionStorage.setItem('quiz_config', JSON.stringify(config));
 
-    // ?④낵???ъ깮 ???댁쫰 ?섏씠吏濡??대룞
+    // 클릭 효과음 재생 후 페이지 이동
     playClickSound();
     router.push('/quiz');
   };
 
   // --------------------------------------------------
-  // ?뱤 湲곕줉 蹂닿린 ?⑥닔
+  // 📊 학습 기록 페이지 이동 함수
   // --------------------------------------------------
-  /**
-   * ?숈뒿 湲곕줉 ?섏씠吏濡??대룞?⑸땲??
-   */
   const handleViewRecords = () => {
     playClickSound();
     router.push('/records');
   };
 
   // --------------------------------------------------
-  // ?뼢截??붾㈃ ?뚮뜑留?
+  // 🖥️ UI 렌더링
   // --------------------------------------------------
   return (
     <div className={styles.container}>
-      {/* ?뙋 ?몄뼱 ?꾪솚 踰꾪듉 (?곷떒 ?곗륫 怨좎젙) */}
+      {/* 🌐 언어 전환 버튼 (상단 우측 고정) */}
       <button className={styles.langButton} onClick={toggleLanguage}>
         {t(language, 'common.lang')}
       </button>
 
-      {/* ?벀 硫붿씤 移대뱶 (湲?섏뒪紐⑦뵾利? */}
+      {/* 📱 메인 카드 컨테이너 */}
       <div className={styles.mainCard}>
-        {/* ?렞 ?쒕ぉ ?곸뿭 */}
+        {/* 🏷️ 앱 제목 영역 */}
         <div className={styles.titleSection}>
           <h1 className={styles.title}>{t(language, 'home.title')}</h1>
           <p className={styles.subtitle}>{t(language, 'home.subtitle')}</p>
         </div>
 
-        {/* ?뫀 ?대쫫 ?낅젰 (?좏깮?? */}
+        {/* ✏️ 이름 입력 영역 (선택사항) */}
         <div className={styles.nameSection}>
           <label className={styles.nameLabel} htmlFor="playerName">
             {t(language, 'home.nameLabel')}
@@ -167,14 +214,13 @@ export default function HomePage() {
           />
         </div>
 
-        {/* ?렜 臾몄젣 ?좏삎 ?좏깮 */}
+        {/* 🧩 문제 유형 선택 그리드 */}
         <div className={styles.typeSection}>
           <h2 className={styles.sectionTitle}>
             {t(language, 'home.selectType')}
           </h2>
           <div className={styles.typeGrid}>
             {QUESTION_TYPES.map((type) => {
-              // 媛??좏삎???꾩씠肄섍낵 洹몃씪?곗씠???됱긽 媛?몄삤湲?
               const info = QUESTION_TYPE_INFO[type];
               const isSelected = questionType === type;
 
@@ -182,19 +228,20 @@ export default function HomePage() {
                 <button
                   key={type}
                   className={`${styles.typeCard} ${isSelected ? styles.typeCardSelected : ''}`}
-                  style={{ backgroundColor: isSelected ? info.colorFrom : "white", color: isSelected ? "white" : "var(--color-text)", borderColor: isSelected ? info.colorFrom : "transparent" }}
+                  style={{
+                    backgroundColor: isSelected ? info.colorFrom : '#FFFFFF',
+                    color: isSelected ? '#FFFFFF' : 'var(--color-text)',
+                    borderColor: isSelected ? info.colorFrom : 'transparent',
+                  }}
                   onClick={() => {
                     setQuestionType(type);
                     playClickSound();
                   }}
                 >
-                  {/* 臾몄젣 ?좏삎 ?대え吏 */}
                   <span className={styles.typeEmoji}>{info.emoji}</span>
-                  {/* 臾몄젣 ?좏삎 ?대쫫 */}
                   <span className={styles.typeName}>
                     {t(language, `type.${type}`)}
                   </span>
-                  {/* 臾몄젣 ?좏삎 ?ㅻ챸 */}
                   <span className={styles.typeDesc}>
                     {t(language, `type.${type}.desc`)}
                   </span>
@@ -204,55 +251,120 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ???쒖씠???좏깮 */}
-        <div className={styles.difficultySection}>
+        {/* 🎚️ 레벨(난이도) 선택 - 좌우 세모(◀, ▶) 버튼 */}
+        <div className={styles.stepperSection}>
           <h2 className={styles.sectionTitle}>
             {t(language, 'home.selectDifficulty')}
           </h2>
-          <div className={styles.buttonGroup}>
-            {DIFFICULTIES.map((diff) => {
-              const isSelected = difficulty === diff;
-              return (
-                <button
-                  key={diff}
-                  className={`${styles.difficultyButton} ${isSelected ? styles.difficultyButtonSelected : ''}`}
-                  onClick={() => {
-                    setDifficulty(diff);
-                    playClickSound();
-                  }}
-                >
-                  {t(language, `difficulty.${diff}`)}
-                </button>
-              );
-            })}
+          <div className={styles.stepperContainer}>
+            {/* 왼쪽 세모(◀) 버튼 */}
+            <button
+              type="button"
+              className={`${styles.stepperArrow} ${styles.stepperArrowDifficulty}`}
+              onClick={handlePrevDifficulty}
+              disabled={DIFFICULTIES.indexOf(difficulty) === 0}
+              aria-label="이전 레벨"
+            >
+              <svg className={styles.triangleIcon} viewBox="0 0 24 24">
+                <polygon points="16,5 7,12 16,19" />
+              </svg>
+            </button>
+
+            {/* 현재 레벨 표시 카드 */}
+            <div className={`${styles.stepperCard} ${styles.stepperCardDifficulty}`}>
+              <span className={styles.stepperCardValue}>
+                {t(language, `difficulty.${difficulty}`)}
+              </span>
+              <span className={styles.stepperCardSub}>
+                {difficulty === 'easy' && (language === 'ko' ? '기초 다지기 (숫자 1~5)' : 'Basic (1~5)')}
+                {difficulty === 'medium' && (language === 'ko' ? '실력 쑥쑥 (숫자 1~10)' : 'Intermediate (1~10)')}
+                {difficulty === 'hard' && (language === 'ko' ? '도전 문제 (식만 풀기)' : 'Challenge (Equations only)')}
+              </span>
+            </div>
+
+            {/* 오른쪽 세모(▶) 버튼 */}
+            <button
+              type="button"
+              className={`${styles.stepperArrow} ${styles.stepperArrowDifficulty}`}
+              onClick={handleNextDifficulty}
+              disabled={DIFFICULTIES.indexOf(difficulty) === DIFFICULTIES.length - 1}
+              aria-label="다음 레벨"
+            >
+              <svg className={styles.triangleIcon} viewBox="0 0 24 24">
+                <polygon points="8,5 17,12 8,19" />
+              </svg>
+            </button>
+          </div>
+
+          {/* 레벨 인디케이터 도트 */}
+          <div className={styles.stepperDots}>
+            {DIFFICULTIES.map((diff) => (
+              <span
+                key={diff}
+                className={`${styles.stepperDot} ${difficulty === diff ? styles.stepperDotActive : ''}`}
+              />
+            ))}
           </div>
         </div>
 
-        {/* ?뵢 臾몄젣 ???좏깮 */}
-        <div className={styles.countSection}>
+        {/* 🔢 문제 개수 선택 - 좌우 세모(◀, ▶) 버튼 */}
+        <div className={styles.stepperSection}>
           <h2 className={styles.sectionTitle}>
             {t(language, 'home.selectCount')}
           </h2>
-          <div className={styles.buttonGroup}>
-            {QUESTION_COUNT_OPTIONS.map((count) => {
-              const isSelected = questionCount === count;
-              return (
-                <button
-                  key={count}
-                  className={`${styles.countButton} ${isSelected ? styles.countButtonSelected : ''}`}
-                  onClick={() => {
-                    setQuestionCount(count);
-                    playClickSound();
-                  }}
-                >
-                  {count}{t(language, 'common.questions')}
-                </button>
-              );
-            })}
+          <div className={styles.stepperContainer}>
+            {/* 왼쪽 세모(◀) 버튼 */}
+            <button
+              type="button"
+              className={`${styles.stepperArrow} ${styles.stepperArrowCount}`}
+              onClick={handlePrevCount}
+              disabled={QUESTION_COUNT_OPTIONS.indexOf(questionCount) === 0}
+              aria-label="문제 수 줄이기"
+            >
+              <svg className={styles.triangleIcon} viewBox="0 0 24 24">
+                <polygon points="16,5 7,12 16,19" />
+              </svg>
+            </button>
+
+            {/* 현재 문제 수 표시 카드 */}
+            <div className={`${styles.stepperCard} ${styles.stepperCardCount}`}>
+              <span className={styles.stepperCardValue}>
+                {questionCount}{t(language, 'common.questions')}
+              </span>
+              <span className={styles.stepperCardSub}>
+                {questionCount === 5 && (language === 'ko' ? '가볍게 한 판! ⏱️' : 'Quick round! ⏱️')}
+                {questionCount === 10 && (language === 'ko' ? '추천 문제 수! 👍' : 'Recommended! 👍')}
+                {questionCount === 15 && (language === 'ko' ? '집중해서 풀기! 🎯' : 'Focus round! 🎯')}
+                {questionCount === 20 && (language === 'ko' ? '수학 마스터 도전! 🏆' : 'Master challenge! 🏆')}
+              </span>
+            </div>
+
+            {/* 오른쪽 세모(▶) 버튼 */}
+            <button
+              type="button"
+              className={`${styles.stepperArrow} ${styles.stepperArrowCount}`}
+              onClick={handleNextCount}
+              disabled={QUESTION_COUNT_OPTIONS.indexOf(questionCount) === QUESTION_COUNT_OPTIONS.length - 1}
+              aria-label="문제 수 늘리기"
+            >
+              <svg className={styles.triangleIcon} viewBox="0 0 24 24">
+                <polygon points="8,5 17,12 8,19" />
+              </svg>
+            </button>
+          </div>
+
+          {/* 문제 수 인디케이터 도트 */}
+          <div className={styles.stepperDots}>
+            {QUESTION_COUNT_OPTIONS.map((count) => (
+              <span
+                key={count}
+                className={`${styles.stepperDot} ${styles.stepperDotCount} ${questionCount === count ? styles.stepperDotCountActive : ''}`}
+              />
+            ))}
           </div>
         </div>
 
-        {/* ?? ?쒖옉 & 湲곕줉 蹂닿린 踰꾪듉 */}
+        {/* 🚀 시작하기 및 기록 보기 버튼 영역 */}
         <div className={styles.startSection}>
           <button className={styles.startButton} onClick={handleStart}>
             {t(language, 'home.startButton')}
@@ -265,5 +377,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-

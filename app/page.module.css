@@ -1,4 +1,4 @@
-﻿/* ============================================================ */
+/* ============================================================ */
 /* ?룧 page.module.css - ???붾㈃ ?꾩슜 ?ㅽ???                      */
 /* ============================================================ */
 /* 湲?섏뒪紐⑦뵾利? ?뚯뒪??洹몃씪?곗씠?? ??踰꾪듉, ?몃쾭 ?④낵 ??         */
@@ -216,71 +216,153 @@
 }
 
 /* ------------------------------------------------------ */
-/* ???쒖씠???좏깮 踰꾪듉                                     */
+/* 🎚️ 레벨/난이도 & 문제 수 스텝퍼 (세모 버튼 UI)           */
 /* ------------------------------------------------------ */
-.difficultySection {
+.stepperSection {
   margin-bottom: var(--spacing-xl);
   animation: fadeIn 0.6s ease-out 0.4s both;
 }
 
-.buttonGroup {
+.stepperContainer {
   display: flex;
-  gap: var(--spacing-md);
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  max-width: 380px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.difficultyButton {
-  padding: var(--spacing-sm) var(--spacing-xl);
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.6);
-  color: var(--color-text);
-  border: 3px solid rgba(108, 99, 255, 0.15);
-  transition: all 0.3s ease;
-  min-width: 140px;
-  min-height: 60px;
+/* 세모(◀, ▶) 버튼 스타일 */
+.stepperArrow {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-round);
+  background: #FFFFFF;
+  border: 3px solid var(--color-primary);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  padding: 0;
 }
 
-.difficultyButton:hover {
-  transform: translateY(-2px);
+.stepperArrowCount {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.stepperArrow:hover:not(:disabled) {
+  transform: scale(1.1);
   box-shadow: var(--shadow-md);
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-primary);
+  color: #FFFFFF;
 }
 
-/* ?좏깮???쒖씠??踰꾪듉 */
-.difficultyButtonSelected { background: var(--color-primary); color: white; border-color: var(--color-primary); box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4); transform: scale(1.05); }
-
-/* ------------------------------------------------------ */
-/* ?뵢 臾몄젣 ???좏깮 踰꾪듉                                    */
-/* ------------------------------------------------------ */
-.countSection {
-  margin-bottom: var(--spacing-xl);
-  animation: fadeIn 0.6s ease-out 0.5s both;
+.stepperArrowCount:hover:not(:disabled) {
+  background: var(--color-success);
+  color: #FFFFFF;
 }
 
-.countButton {
-  padding: var(--spacing-sm) var(--spacing-xl);
-  font-size: var(--font-size-lg);
+.stepperArrow:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* 비활성화 상태 (처음 또는 끝에 도달했을 때) */
+.stepperArrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: #CBD5E1;
+  color: #94A3B8;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 세모 SVG 아이콘 */
+.triangleIcon {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+/* 중앙 선택값 카드 */
+.stepperCard {
+  flex: 1;
+  min-width: 170px;
+  max-width: 240px;
+  height: 74px;
+  border-radius: var(--radius-lg);
+  background: #FFFFFF;
+  border: 3px solid var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  user-select: none;
+  padding: 0 var(--spacing-xs);
+}
+
+.stepperCardCount {
+  border-color: var(--color-success);
+}
+
+.stepperCardValue {
+  font-size: var(--font-size-xl);
   font-weight: 700;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.6);
-  color: var(--color-text);
-  border: 3px solid rgba(78, 205, 196, 0.15);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.stepperCardCount .stepperCardValue {
+  color: var(--color-success);
+}
+
+.stepperCardSub {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+/* 인디케이터 도트 */
+.stepperDots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--spacing-sm);
+}
+
+.stepperDot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-round);
+  background: rgba(108, 99, 255, 0.2);
   transition: all 0.3s ease;
-  min-width: 100px;
-  min-height: 60px;
 }
 
-.countButton:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  background: rgba(255, 255, 255, 0.9);
+.stepperDotActive {
+  background: var(--color-primary);
+  width: 24px;
+  border-radius: 12px;
 }
 
-/* ?좏깮??臾몄젣 ??踰꾪듉 */
-.countButtonSelected { background: var(--color-success); color: white; border-color: var(--color-success); box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4); transform: scale(1.05); }
+.stepperDotCount {
+  background: rgba(78, 205, 196, 0.25);
+}
+
+.stepperDotCountActive {
+  background: var(--color-success);
+  width: 24px;
+  border-radius: 12px;
+}
 
 /* ------------------------------------------------------ */
 /* ?? ?쒖옉 踰꾪듉                                            */
@@ -402,15 +484,32 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .buttonGroup {
-    flex-direction: column;
-    align-items: center;
+  .stepperContainer {
+    max-width: 100%;
+    gap: 8px;
   }
 
-  .difficultyButton,
-  .countButton {
-    width: 100%;
-    max-width: 250px;
+  .stepperArrow {
+    width: 48px;
+    height: 48px;
+  }
+
+  .triangleIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .stepperCard {
+    min-width: 150px;
+    height: 68px;
+  }
+
+  .stepperCardValue {
+    font-size: var(--font-size-lg);
+  }
+
+  .stepperCardSub {
+    font-size: 0.75rem;
   }
 
   .startButton {
